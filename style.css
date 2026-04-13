@@ -103,6 +103,10 @@ body .promos .promo-pai img{
     height: 30vw;
 }
 
+body .promos .promo-filho{
+    position: relative;
+}
+
 body .promos .promo-filho img{
     height: 13vw;
     width: 13vw;
@@ -127,24 +131,26 @@ body .promos .promo-filho img{
 body .promo-filho .sobreposto img{
     height: 4vw;
     width: auto;
-    position: fixed;
+    position: absolute;
     z-index: 1000;
     background-color: transparent !important;
+    border-radius: 0;
 }
 
 #estrela1{
-    top: 46%;
-    left: 49%;
+    top: 10vw;
+    left: 12vw;
 }
 
 #estrela2{
-    top: 77%;
-    left: 50%;
+    top: 25vw;
+    left: 14vw;
 }
 
 #buner{
-    top: 46%;
-    left: 70%;
+    top: 11vw;
+    left: 25vw;
+    width: 13vw;
 }
 
 body .promos .promo-filho{

@@ -33,6 +33,7 @@ header .barra-pesquisa-header form{
 header .barra-pesquisa-header label{
     font-size: 2.7vw;
     margin-left: 0.5vw;
+
 }
 
 header .barra-pesquisa-header svg{
@@ -44,7 +45,7 @@ header .barra-pesquisa-header input{
     margin-top: 0.5vw;
     height: 2vw;
     width: 60vw;
-    border-radius: 20px;
+    border-radius: 20px;;
 }
 
 header .icons-header{
@@ -80,8 +81,8 @@ header .menu-inferior .botoes a{
     font-size: 1.7vw;
     text-decoration: none;
     color: black;
-    margin: 1vw;
-    margin-top: 1.3vw;
+    margin: 4vw;
+    margin-top: 2vw;
 }
 
 header .menu-inferior .botoes a:hover{
@@ -192,6 +193,7 @@ body .outros-produtos h1{
 
 body .outros-produtos .produtos img{
     height: 13vw;
+    margin: 3vw;   
 }
 
 #nome-link{
@@ -201,6 +203,7 @@ body .outros-produtos .produtos img{
 
 body .outros-produtos .produtos .estrelass img{
     height: 1vw;
+    margin: 0 !important
 }
 
 #produtos-sementes{

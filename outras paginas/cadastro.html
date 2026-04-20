@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina cadastro</title>
+    <title>Cadastrar-se</title>
     <link rel="icon" href="../imagens/header/logo-title.png">
 
     <link rel="stylesheet" href="../style.css">
@@ -37,7 +37,7 @@
 
             <div class="icons-header">
 
-                <a href="loguin.html"><i class="bi bi-person-circle"></i></a>
+                <a href="login.html"><i class="bi bi-person-circle"></i></a>
 
                 <a href="carrinho.html"><i class="bi bi-cart"></i></a>
 
@@ -72,65 +72,51 @@
 
 <div class="corpo">
 
-    <div class="loguin">
+    <div class="login">
 
         <div class="formulario">
 
-            <h1>loguin stardew store</h1>
+            <h1 id="login-titulo">Criar conta</h1>
 
             <form action="#">
 
-                <div>
-
+                <div class="campo">
                     <label for="nome">Nome:</label>
-                    <input type="text" required>
-
+                    <input type="text" id="nome" required>
                 </div>
 
-                <div>
-
-                    <label for="numero">Numero: </label>
-                    <input type="tel" required>
-
+                <div class="campo">
+                    <label for="login">Login:</label>
+                    <input type="tel" id="numero" required>
                 </div>
 
-                <div>
-
-                    <label for="email">E-mail: </label>
-                    <input type="text" required>
-
+                <div class="campo">
+                    <label for="email">E-mail:</label>
+                    <input type="text" id="email" required>
                 </div>
 
-                <div>
-
-                    <label for="cep">CEP:</label>
-                    <input type="number" max="99999999" required>
-
+                <div class="campo">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" maxlength="11" required>
                 </div>
 
-                <div>
-
-                    <label for="endereco">Endereco:</label>
-                    <input type="text" required>
-
+                <div class="campo">
+                    <label for="dt-nascimento">Idade:</label>
+                    <input type="date" id="dt-nascimento" required>
                 </div>
 
-                <div>
-
-                    <label for="senha">senha: </label>
-                    <input type="password" required>
-
+                <div class="campo">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" required>
                 </div>
 
                 <div class="botao">
-
-                    <button type="submit">logar</button>
-
+                    <button type="submit">Registrar</button>
                 </div>
 
             </form>
 
-            <a href="loguin.html">ja é cadastrado?? clique aqui</a>
+            <a id="opcoes" href="login.html">Já é cadastrado? clique aqui</a>
 
         </div>
 
@@ -139,4 +125,16 @@
 </div>
 
 </body>
+
+<hr id="barra-de-cima">
+<header>
+    <div class="menu-inferior">
+        <div class="botoes-rodape">
+
+            <a id="Contato" href="#">Contato</a>
+
+            <a id="Sobre" href="#">Sobre nós</a>
+
+        </div>
+    </div>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina loguin</title>
+    <title>login</title>
     <link rel="icon" href="../imagens/header/logo-title.png">
 
     <link rel="stylesheet" href="../style.css">
@@ -37,9 +37,9 @@
 
             <div class="icons-header">
 
-                <a><i class="bi bi-person-circle"></i></a>
+              <a href="login.html"><i class="bi bi-person-circle"></i></a>
 
-                <a><i class="bi bi-cart"></i></a>
+            <a href="carrinho.html"><i class="bi bi-cart"></i></a>
 
             </div>
         </div>
@@ -52,7 +52,7 @@
 
                 <a href="../index.html">Ofertas</a>
 
-                <a href="#">Sementes</a>
+                <a href="sementes.html">Sementes</a>
 
                 <a href="#">Animais</a>
 
@@ -72,43 +72,55 @@
 
 <div class="corpo">
 
-    <div class="loguin">
+    <div class="login">
 
         <div class="formulario">
 
-            <h1>loguin stardew store</h1>
+            <h1 id="login-titulo">Faça login na sua conta</h1>
 
             <form action="#">
 
-                <div>
-
+                <div class="campo">
+        
                     <label for="email">E-mail: </label>
                     <input type="text" required>
 
                 </div>
 
-                <div>
+                <div class="campo">
 
-                    <label for="senha">senha: </label>
+                    <label for="senha">Senha: </label>
                     <input type="password" required>
 
                 </div>
 
                 <div class="botao">
 
-                    <button type="submit">logar</button>
+                    <button type="submit">Entrar</button>
 
                 </div>
 
             </form>
 
-            <a href="cadastro.html">nao é cadastrado?? cadastrese agora</a>
+            <a id="opcoes" href="cadastro.html">Não tem uma conta? Cadastre-se agora</a>
 
         </div>
 
     </div>
 
 </div>
+
+<hr id="barra-de-cima">
+<header>
+    <div class="menu-inferior">
+        <div class="botoes-rodape">
+
+            <a id="Contato" href="#">Contato</a>
+
+            <a id="Sobre" href="#">Sobre nós</a>
+
+        </div>
+    </div>
 
 </body>
 </html>

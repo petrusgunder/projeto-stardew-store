@@ -110,6 +110,8 @@
                     <input type="password" id="senha" required>
                 </div>
 
+                <div id="alerta-cadastro"></div>
+
                 <div class="botao">
                     <button type="submit">Registrar</button>
                 </div>
@@ -138,3 +140,43 @@
         </div>
     </div>
 </html>
+
+<!-- HTML a ser adicionado antes do <div class="botao">: -->
+<!-- <div id="alerta-cadastro" style="display: none; color: red; text-align: center; margin-bottom: 1vw;"></div> -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const formCadastro = document.querySelector('.login form');
+    const alertaDiv = document.getElementById('alerta-cadastro');
+
+    formCadastro.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const campos = [
+            { id: 'nome', label: 'Nome' },
+            { id: 'numero', label: 'Login' },
+            { id: 'email', label: 'E-mail' },
+            { id: 'cpf', label: 'CPF' },
+            { id: 'dt-nascimento', label: 'Idade' },
+            { id: 'senha', label: 'Senha' }
+        ];
+
+        const faltantes = [];
+
+        campos.forEach(campo => {
+            const input = document.getElementById(campo.id);
+            if (!input || !input.value.trim()) {
+                faltantes.push(campo.label);
+            }
+        });
+
+        if (faltantes.length > 0) {
+            alertaDiv.textContent = `Faltou digitar: ${faltantes.join(', ')}`;
+            alertaDiv.style.display = 'block';
+        } else {
+            alertaDiv.style.display = 'none';
+            alert('Cadastro realizado com sucesso!');
+        }
+    });
+});
+</script>

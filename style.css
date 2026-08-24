@@ -606,3 +606,227 @@ body .outros-produtos .produtos .estrelass img{
 
 
 /*=========================================*/
+
+/* Estilo básico para o menu suspenso */
+.search-container { position: relative; width: 300px; }
+.autocomplete-box {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.item-produto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+}
+.item-produto:hover { background-color: #f0f0f0; }
+.item-produto img { widt0h: 32px; height: 32px; object-fit: cover; border-radius: 4px; }
+
+/* --- css mobile --- */
+
+@media (max-width: 768px) {
+
+    /* 1. Ajustes Gerais e Fontes */
+    body {
+        font-size: 16px; 
+    }
+
+    /* 2. Menu Superior (Header) */
+    header .menu-superior {
+        flex-direction: column; /* Empilha os elementos do topo */
+        align-items: center;
+        gap: 15px;
+        padding: 10px;
+    }
+
+    header .imagem-header img {
+        width: 15px; /* Tamanho fixo em pixels para não sumir */
+    }
+
+    header .barra-pesquisa-header form {
+        width: 90%;
+        justify-content: center;
+    }
+
+    header .barra-pesquisa-header input {
+        width: 80% !important;
+        font-size: 16px;
+    }
+
+    header .barra-pesquisa-header label {
+        font-size: 18px;
+    }
+
+    header .icons-header a {
+        font-size: 18px;
+    }
+
+    /* Espaçamentos das barras de linha (hr) */
+    header #barra-de-cima, 
+    header #barra-de-baixo {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    /* 3. Menu Inferior / Links do Cabeçalho */
+    header .menu-inferior .botoes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    header .menu-inferior .botoes a,
+    header .menu-inferior .botoes-rodape #Contato,
+    header .menu-inferior .botoes-rodape #Sobre {
+        font-size: 16px !important;
+        text-align: center;
+    }
+
+    /* 4. Seção de Promoções (Banners e Grades) */
+    body .promos {
+        flex-direction: column; /* Coloca o banner principal acima dos outros */
+        align-items: center;
+    }
+
+    body .promos .promo-pai img {
+        width: 90%;
+        height: auto;
+        margin-left: 0; /* Centraliza */
+        margin-right: 0;
+    }
+
+    body .promos .promo-filho {
+        justify-content: center;
+        margin-left: 0;
+        gap: 15px;
+    }
+
+    body .promos .promo-filho img {
+        width: 110px; /* Define tamanho fixo para os quadradinhos */
+        height: 110px;
+    }
+
+    /* Reseta as posições absolutas das estrelas sobrepostas para não sumirem da tela */
+    #esquerda, #direita, #cima,
+    #estrela1, #estrela2, #buner {
+        position: static !important; 
+        margin: 5px !important;
+        width: auto !important;
+        height: auto !important;
+    }
+
+    /* 5. Lista de Produtos Gerais */
+    body .outros-produtos h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    body .produtos {
+        justify-content: center;
+    }
+
+    body .outros-produtos .produtos img {
+        width: 130px;
+        height: 130px;
+        margin: 10px;
+    }
+
+    /* 6. Página de um Produto Único (Ex: Rabanete) */
+    .produto-unico {
+        flex-direction: column; /* Foto em cima, dados embaixo */
+        align-items: center;
+        padding: 15px;
+    }
+
+    .coluna-esquerda {
+        width: 100%;
+    }
+
+    .produto-unico .img-produto img {
+        height: 250px;
+        width: auto;
+        margin: 0 auto 20px auto;
+        display: block;
+    }
+
+    #titulo {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    #pix, #parcela, #avaliacao {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .descricao h1 { font-size: 20px; }
+    .descricao p, .descricao li { font-size: 16px; }
+
+    /* Caixa de Compra Lateral (agora fica embaixo) */
+    #compra {
+        width: 100%;
+        margin-right: 0;
+        padding: 20px;
+    }
+
+    #compra h1 { font-size: 20px; }
+    #compra p, #entrega, #frete, #pagamento, #compra label {
+        font-size: 16px;
+        margin-left: 0;
+    }
+
+    .formulario input {
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .formulario button, #add-car {
+        font-size: 16px;
+        padding: 12px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Avaliações */
+    .texto-avaliacao, .avaliacao {
+        font-size: 16px;
+    }
+
+    /* 7. Tela de Cadastro / Login */
+    .login {
+        width: 90vw; /* Ocupa quase a largura toda do celular */
+        padding: 20px;
+    }
+
+    .campo {
+        grid-template-columns: 1fr; /* Coloca o texto acima do input */
+        gap: 5px;
+    }
+
+    .campo label {
+        text-align: left;
+    }
+
+    .campo input {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .login .botao button {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    #opcoes {
+        font-size: 14px;
+    }
+}

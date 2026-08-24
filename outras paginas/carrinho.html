@@ -7,9 +7,7 @@
     <link rel="icon" href="../imagens/header/logo-title.png">
 
     <link rel="stylesheet" href="../style.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,181 +16,214 @@
 </head>
 <body>
     <header>
-
         <div class="menu-superior">
             <div class="barra-pesquisa-header">
-
                 <form>
-
                     <label for="pesquisa">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                         </svg>
                     </label>
-                    <input type="text">
-
+                    <input type="text" id="pesquisa">
                 </form>
-
             </div>
 
             <div class="icons-header">
-
                 <a href="login.html"><i class="bi bi-person-circle"></i></a>
-
                 <a href="carrinho.html"><i class="bi bi-cart"></i></a>
-
             </div>
         </div>
 
         <hr id="barra-de-cima">
 
         <div class="menu-inferior">
-
             <div class="botoes">
-
                 <a href="../index.html">Ofertas</a>
-
                 <a href="sementes.html">Sementes</a>
-
                 <a href="#">Animais</a>
-
                 <a href="#">Roupas</a>
-
                 <a href="#">Objetos</a>
-
                 <a href="#">Vender meu bau</a>
-
             </div>
-
         </div>
 
         <hr id="barra-de-baixo">
-
     </header>
 
     <div class="chasi">
-
-        <div class="compra">
-
+        <!-- Produto 1: Esturjão -->
+        <div class="compra" data-preco="400">
             <div class="esquerda">
-
-                <div class="img"><img src="../imagens/produtos/esturjao.png" alt=""></div>
-
-                    <div class="dados">
-
-                        <h1>Esturjão</h1>
-
-                        <p>Preco unitário: R$: 400,00 </p>
-
-                    </div>
-
+                <div class="img"><img src="../imagens/produtos/esturjao.png" alt="Esturjão"></div>
+                <div class="dados">
+                    <h1>Esturjão</h1>
+                    <p>Preço unitário: R$: 400,00</p>
+                </div>
             </div>
-
             <div class="finalizar">
-                <p> Quantidade: 5 </p>
-
-                <p> R$: 2.000,00 </p>
-
-                  <form action="#">
-                        <br>
-                        <label>
-                            Comprar <input type="checkbox">
-                        </label>
-                    </form>
-            </div>
-            
-        </div>
-
-
-        <div class="compra">
-
-            <div class="esquerda">
-
-                <div class="img"><img src="../imagens/produtos/galinha_tula.png" alt=""></div>
-
-                    <div class="dados">
-
-                        <h1>Galinha Nula</h1>
-
-                        <p>preco unitário: R$: 65,00 </p>
-
-                    </div>
-            </div>
-
-            <div class="finalizar">
-                <p> Quantidade: 2</p>
-
-                <p>R$: 130,00 </p>
-
-                  <form action="#">
-                        <br>
-                        <label>
-                            Comprar <input type="checkbox">
-                        </label>
-                    </form>
+                <label>Qtd: <input type="number" class="qtd-prod" value="5" min="0" style="width: 50px;"></label>
+                <p class="subtotal-item">R$: 2.000,00</p>
+                <form><label>Comprar <input type="checkbox" class="check-item" checked></label></form>
             </div>
         </div>
 
-        <div class="compra">
-
-                <div class="esquerda">
-
-                    <div class="img"><img src="../imagens/produtos/rabanete.png" alt=""></div>
-
-                        <div class="dados">
-
-                            <h1>Sementes de Rabanete</h1>
-
-                            <p>Preco unitário: R$: 10,00 </p>
-
-                        </div>
-
-                </div>
-
-                <div class="finalizar">
-                    <p>Quantidade: 3</p>
-
-                    <p>R$: 30,00 </p>
-
-                    <form action="#">
-                        <br>
-                        <label>
-                            Comprar <input type="checkbox">
-                        </label>
-                    </form>
-
+        <!-- Produto 2: Galinha Nula -->
+        <div class="compra" data-preco="65">
+            <div class="esquerda">
+                <div class="img"><img src="../imagens/produtos/galinha_tula.png" alt="Galinha Nula"></div>
+                <div class="dados">
+                    <h1>Galinha Nula</h1>
+                    <p>Preço unitário: R$: 65,00</p>
                 </div>
             </div>
+            <div class="finalizar">
+                <label>Qtd: <input type="number" class="qtd-prod" value="2" min="0" style="width: 50px;"></label>
+                <p class="subtotal-item">R$: 130,00</p>
+                <form><label>Comprar <input type="checkbox" class="check-item" checked></label></form>
+            </div>
+        </div>
 
-        <div class="finalizar">
+        <!-- Produto 3: Sementes de Rabanete -->
+        <div class="compra" data-preco="10">
+            <div class="esquerda">
+                <div class="img"><img src="../imagens/produtos/rabanete.png" alt="Rabanete"></div>
+                <div class="dados">
+                    <h1>Sementes de Rabanete</h1>
+                    <p>Preço unitário: R$: 10,00</p>
+                </div>
+            </div>
+            <div class="finalizar">
+                <label>Qtd: <input type="number" class="qtd-prod" value="3" min="0" style="width: 50px;"></label>
+                <p class="subtotal-item">R$: 30,00</p>
+                <form><label>Comprar <input type="checkbox" class="check-item" checked></label></form>
+            </div>
+        </div>
 
+        <!-- Painel de Fechamento -->
+        <div class="finalizar" style="width: 100%;">
             <div class="cep">
                 <label>CEP:</label>
-                    <input type="text" placeholder="00000-000">
+                <input type="text" id="input-cep" placeholder="00000-000" maxlength="9">
+                <button type="button" id="btn-cep">Calcular Frete</button>
             </div>
+            <p id="msg-cep" style="margin-left: 60vw; font-size: 1vw; color: red;"></p>
 
-            <p class="frete">Frete: R$: 15,50</p>
-
-            <p class="total">Total: R$: 2.175,50</p>
-                
-        </div>
-            <div class="botao">
-                <button>finalizar compra</button>
+            <div class="cep" style="margin-top: 1vw;">
+                <label>Cupom:</label>
+                <input type="text" id="input-cupom" placeholder="Digite seu cupom">
+                <button type="button" id="btn-cupom">Aplicar</button>
             </div>
+            <p id="msg-cupom" style="margin-left: 60vw; font-size: 1vw; color: green;"></p>
+
+            <p class="frete" id="exibe-frete">Frete: R$: 0,00</p>
+            <p class="total" id="exibe-total">Total: R$: 0,00</p>
         </div>
-</body>
 
-<hr id="barra-de-cima">
-<header>
-    <div class="menu-inferior">
-        <div class="botoes-rodape">
-
-            <a id="Contato" href="#">Contato</a>
-
-            <a id="Sobre" href="#">Sobre nós</a>
-
+        <div class="botao">
+            <button type="button">Finalizar compra</button>
         </div>
     </div>
 
+    <hr id="barra-de-cima">
 
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let valorFrete = 0;
+        let descontoPorcentagem = 0;
+        let temFreteGratisCupom = false;
+
+        // Prefixos válidos de CEP: Garopaba (88495), Imbituba (88780), Paulo Lopes (88490)
+        const cepsValidos = ['88495', '88780', '88490'];
+
+        function atualizarCarrinho() {
+            let subtotalProdutos = 0;
+            const produtos = document.querySelectorAll('.compra');
+
+            produtos.forEach(prod => {
+                const precoAttr = prod.getAttribute('data-preco');
+                if (!precoAttr) return;
+
+                const preco = parseFloat(precoAttr);
+                const qtdInput = prod.querySelector('.qtd-prod');
+                const check = prod.querySelector('.check-item');
+                const subtotalItemEl = prod.querySelector('.subtotal-item');
+
+                let qtd = parseInt(qtdInput.value) || 0;
+                if (qtd < 0) qtd = 0;
+
+                const totalItem = preco * qtd;
+                subtotalItemEl.textContent = `R$: ${totalItem.toFixed(2).replace('.', ',')}`;
+
+                if (check.checked) {
+                    subtotalProdutos += totalItem;
+                }
+            });
+
+            let freteFinal = temFreteGratisCupom ? 0 : valorFrete;
+            let valorDesconto = subtotalProdutos * descontoPorcentagem;
+            let totalGeral = (subtotalProdutos - valorDesconto) + freteFinal;
+
+            if (totalGeral < 0) totalGeral = 0;
+
+            document.getElementById('exibe-frete').textContent = `Frete: R$: ${freteFinal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('exibe-total').textContent = `Total: R$: ${totalGeral.toFixed(2).replace('.', ',')}`;
+        }
+
+        document.querySelectorAll('.qtd-prod, .check-item').forEach(el => {
+            el.addEventListener('input', atualizarCarrinho);
+        });
+
+        document.getElementById('btn-cep').addEventListener('click', () => {
+            const cepVal = document.getElementById('input-cep').value.replace(/\D/g, '');
+            const msgCep = document.getElementById('msg-cep');
+
+            const eValido = cepsValidos.some(prefixo => cepVal.startsWith(prefixo));
+
+            if (eValido) {
+                valorFrete = 15.50;
+                msgCep.style.color = 'green';
+                msgCep.textContent = 'CEP atende Garopaba, Imbituba ou Paulo Lopes!';
+            } else {
+                valorFrete = 0;
+                msgCep.style.color = 'red';
+                msgCep.textContent = 'CEP indisponível. Aceito apenas Garopaba, Imbituba e Paulo Lopes.';
+            }
+            atualizarCarrinho();
+        });
+
+        document.getElementById('btn-cupom').addEventListener('click', () => {
+            const cupom = document.getElementById('input-cupom').value.trim().toUpperCase();
+            const msgCupom = document.getElementById('msg-cupom');
+
+            descontoPorcentagem = 0;
+            temFreteGratisCupom = false;
+
+            if (cupom === 'DESCONTO10') {
+                descontoPorcentagem = 0.10;
+                msgCupom.style.color = 'green';
+                msgCupom.textContent = 'Cupom de 10% de desconto aplicado!';
+            } else if (cupom === 'FRETEGRATIS') {
+                temFreteGratisCupom = true;
+                msgCupom.style.color = 'green';
+                msgCupom.textContent = 'Cupom de Frete Grátis aplicado!';
+            } else {
+                msgCupom.style.color = 'red';
+                msgCupom.textContent = 'Cupom inválido.';
+            }
+            atualizarCarrinho();
+        });
+
+        atualizarCarrinho();
+    });
+    </script>
+</body>
 </html>

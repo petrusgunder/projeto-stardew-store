@@ -21,20 +21,10 @@
     <header>
 
         <div class="menu-superior">
-            <div class="barra-pesquisa-header">
-
-                <form>
-
-                    <label for="pesquisa">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </label>
-                    <input type="text">
-
-                </form>
-
-            </div>
+            <div class="search-container">
+            <input type="text" id="busca" placeholder="Buscar produto..." autocomplete="off">
+            <div id="resultados" class="autocomplete-box"></div>
+        </div>
 
             <div class="icons-header">
 
@@ -305,3 +295,43 @@
 </header>
 </body>
 </html>
+
+<script>
+
+const produtos = [
+    {nome:"rabanete", url:"/outras paginas/rabanete.html",img:"/imagens/produtos/rabanete.png"},
+    {nome:"melao", url:'#',img:"/imagens/produtos/melao.png"},
+    {nome:"chirivia", url:'#',img:"/imagens/produtos/chirivia.png"},
+    {nome:"vagem", url:'#',img:"/imagens/produtos/vagem.png"},
+    {nome:"couve", url:'#',img:"/imagens/produtos/couve-flor.png"},
+    {nome:"uva", url:'#',img:"/imagens/produtos/uva.png"},
+    {nome:"abobora", url:'#',img:"/imagens/produtos/abobora.png"},
+    {nome:"mirtilo", url:'#',img:"/imagens/produtos/mirtilo.png"},
+]
+
+const inputBusca = document.getElementById('busca');
+const containerResultados = document.getElementById('resultados');
+
+inputBusca.addEventListener('input', (e) => {
+  const termo = e.target.value.toLowerCase().trim();
+  containerResultados.innerHTML = '';
+
+  if (!termo) return;
+
+  const filtrados = produtos.filter(produto => 
+    produto.nome.toLowerCase().includes(termo)
+  );
+
+  filtrados.forEach(produto => {
+    const link = document.createElement('a');
+    link.href = produto.url;
+    link.className = 'item-produto';
+    link.innerHTML = `
+      <img src="${produto.img}" alt="${produto.nome}">
+      <span>${produto.nome}</span>
+    `;
+    containerResultados.appendChild(link);
+  });
+});
+
+</script>

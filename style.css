@@ -371,12 +371,12 @@ body .outros-produtos .produtos img {
     object-fit: contain;
 }
 
-#nome-link {
+.nome-link {
     color: black;
     text-decoration: none;
 }
 
-#nome-link:hover {
+.nome-link:hover {
     color: rgb(71, 0, 0);
 }
 

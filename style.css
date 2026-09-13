@@ -1,3 +1,7 @@
+/* ================================
+   CONFIGURAÇÕES GERAIS
+================================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -10,130 +14,181 @@
 
 body {
     background-color: #ffecc9;
+    color: black;
 }
 
-/*menu superiorrrr -----------------------------------------------*/
+img {
+    max-width: 100%;
+}
 
-header .menu-superior{
+/* ================================
+   HEADER
+================================ */
+
+header .menu-superior {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    height: 4.0vw;
+    min-height: 4vw;
 }
 
-header .imagem-header img{
-    color: black;
+header .imagem-header img {
     width: 13vw;
     margin: 0.5vw;
 }
 
-header .barra-pesquisa-header form{
+header .barra-pesquisa-header form {
     margin: 0.5vw;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
 }
 
-header .barra-pesquisa-header label{
+header .barra-pesquisa-header label {
     font-size: 2.7vw;
     margin-left: 0.5vw;
 }
 
-header .barra-pesquisa-header svg{
+header .barra-pesquisa-header svg {
     font-size: 2vw;
     margin-bottom: 0.5vw;
 }
 
-header .barra-pesquisa-header input{
+header .barra-pesquisa-header input {
     background-color: #ffecc9;
     margin-top: 0.5vw;
     height: 2vw;
     width: 60vw;
+    border: 1px solid #555;
     border-radius: 20px;
+    padding: 0 1vw;
+    outline: none;
 }
 
-header .icons-header{
+header .search-container {
+    position: relative;
+    width: 60vw;
+    margin: 0.5vw;
+}
+
+header .search-container input {
+    width: 100%;
+    height: 2.5vw;
+    padding: 0 1vw;
+    background-color: #ffecc9;
+    border: 1px solid #555;
+    border-radius: 20px;
+    outline: none;
+    font-size: 1vw;
+}
+
+header .icons-header {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
     cursor: pointer;
     margin: 0.5vw;
-    margin-top: 0.5vw;
     padding: 1vw;
 }
 
-header .icons-header a{
+header .icons-header a {
     color: black;
     font-size: 1.4vw;
+    text-decoration: none;
 }
 
-/*menu superiorrrr -----------------------------------------------*/
+header .icons-header a:hover {
+    color: rgb(71, 0, 0);
+}
 
-hr{
+/* ================================
+   MENU
+================================ */
+
+hr {
     background-color: brown;
     width: 100%;
     height: 2px;
     border: none;
 }
 
-header #barra-de-cima{
-    margin-bottom: 1.0vw;
+header #barra-de-cima {
+    margin-bottom: 1vw;
 }
 
-header #barra-de-baixo{
-    margin-top: 1.0vw;    
+header #barra-de-baixo {
+    margin-top: 1vw;
 }
 
-/*menu inferiorrrr -----------------------------------------------*/
-header .menu-inferior .botoes a{
+header .menu-inferior .botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header .menu-inferior .botoes a {
     font-size: 1.7vw;
     text-decoration: none;
     color: black;
-    margin: 4vw;
-    margin-top: 2vw;
+    margin: 0 2vw;
 }
 
-header .menu-inferior .botoes a:hover{
+header .menu-inferior .botoes a:hover {
     font-size: 1.8vw;
     color: rgb(71, 0, 0);
 }
 
-/*menu inferiorrrr -----------------------------------------------*/
-header .menu-inferior .botoes-rodape #Contato{
-    font-size: 1.7vw;
-    text-decoration: none;
-    margin-left: 41vw;
-    color: black;
-    margin-top: 2vw;
-}
-
-header .menu-inferior .botoes-rodape #Sobre{
-    font-size: 1.7vw;
-    text-decoration: none;
-    margin-right: 35vw;
-    margin: 3vw;
-    color: black;
-    margin-top: 2vw;
-}
-
-header .menu-inferior .botoes-rodape a:hover{
-    font-size: 1.8vw !important;
-    color: rgb(71, 0, 0) !important;
-}
-/*promos---------------------------------------------------*/
-
-body .promos{
+header .menu-inferior .botoes-rodape {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-body .promos .promo-pai img{
+header .menu-inferior .botoes-rodape #Contato,
+header .menu-inferior .botoes-rodape #Sobre {
+    font-size: 1.7vw;
+    text-decoration: none;
+    color: black;
+    margin: 1vw 3vw;
+}
+
+header .menu-inferior .botoes-rodape a:hover {
+    font-size: 1.8vw;
+    color: rgb(71, 0, 0);
+}
+
+/* ================================
+   PROMOÇÕES
+================================ */
+
+body .promos {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+body .promos .promo-pai img {
+    display: block;
     margin-top: 2vw;
     margin-left: 7vw;
     height: 30vw;
+    width: auto;
 }
 
-body .promos .promo-filho{
+body .promos .promo-filho {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-left: 2vw;
+    margin-top: 2vw;
+    gap: 1vw;
+    width: 100%;
 }
 
-body .promos .promo-filho img{
+body .promos .promo-filho img {
     height: 13vw;
     width: 13vw;
     aspect-ratio: 1 / 1;
@@ -142,64 +197,56 @@ body .promos .promo-filho img{
     object-fit: cover;
 }
 
-body .promos .promo-filho a{
+body .promos .promo-filho a {
     cursor: pointer;
 }
 
-#direita{
-    margin-right: 20vw;
+#direita {
+    margin-right: 2vw;
 }
 
-#esquerda{
-    margin-left: 15vw;
+#esquerda {
+    margin-left: 2vw;
 }
 
-#cima{
-    margin-left: 13vw;
+#cima {
+    margin-left: 2vw;
 }
 
-body .promo-filho .sobreposto img{
+body .promo-filho .sobreposto img {
     height: 4vw;
     width: auto;
     position: absolute;
-    z-index: 1000;
+    z-index: 10;
     background-color: transparent !important;
     border-radius: 0;
 }
 
-#estrela1{
+#estrela1 {
     top: 10vw;
     left: 12vw;
 }
 
-#estrela2{
+#estrela2 {
     top: 25vw;
     left: 14vw;
 }
 
-#buner{
+#buner {
     top: 11vw;
     left: 25vw;
     width: 13vw;
 }
 
-body .promos .promo-filho{
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 2vw;
-    margin-top: 2vw;
-    gap: 1vw;
-    width: 100%;
-}
+/* ================================
+   PRODUTOS
+================================ */
 
-/*promos-------------------------------------------------*/
-
-/*produtos------------------------------------------*/
-
-body .produtos{
+body .produtos {
     display: flex;
     flex-wrap: wrap;
     padding: 1vw;
+    gap: 1vw;
 }
 
 body .produtos .um-produto {
@@ -210,36 +257,49 @@ body .produtos .um-produto {
     margin-left: 2vw;
 }
 
-body .outros-produtos h1{
+body .outros-produtos h1 {
     font-size: 3vw;
     margin-top: 1vw;
     margin-left: 1vw;
 }
 
-body .outros-produtos .produtos img{
+body .outros-produtos .produtos img {
     height: 13vw;
-    margin: 3vw; 
+    width: auto;
+    margin: 1.5vw;
+    object-fit: contain;
 }
 
-#nome-link{
+#nome-link {
     color: black;
     text-decoration: none;
 }
 
-body .outros-produtos .produtos .estrelass img{
-    height: 1vw;
-    margin: 0 !important
+#nome-link:hover {
+    color: rgb(71, 0, 0);
 }
 
-#produtos-sementes{
+body .outros-produtos .produtos .estrelass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2vw;
+}
+
+body .outros-produtos .produtos .estrelass img {
+    height: 1vw;
+    width: auto;
+    margin: 0 !important;
+}
+
+#produtos-sementes {
     display: flex;
     flex-wrap: wrap;
 }
 
-/*produtos --------------------------------------------*/
-
-
-/*um produto - rabanete----------------------------------*/
+/* ================================
+   PÁGINA DE PRODUTO ÚNICO
+================================ */
 
 .produto-unico {
     display: flex;
@@ -253,38 +313,40 @@ body .outros-produtos .produtos .estrelass img{
     display: flex;
     flex-direction: column;
     flex: 2;
+    min-width: 0;
 }
 
-.coluna-esquerda .textos p{
+.coluna-esquerda .textos p {
     margin-left: 1vw;
 }
 
-#titulo{
+#titulo {
     font-size: 2.3vw;
 }
 
-#pix{
+#pix {
     color: red;
     margin-left: 4vw;
     font-size: 2vw;
 }
 
-#parcela{
+#parcela {
     color: rgb(119, 118, 118);
     margin-left: 7vw;
     font-size: 2vw;
 }
 
-#avaliacao{
+#avaliacao {
     color: rgb(119, 118, 118);
     margin-left: 2vw;
 }
 
-.coluna-esquerda .estrelass img{
+.coluna-esquerda .estrelass img {
     height: 2vw;
+    width: auto;
 }
 
-#primeira{
+#primeira {
     margin-left: 2vw;
 }
 
@@ -299,6 +361,7 @@ body .outros-produtos .produtos .estrelass img{
     width: auto;
     margin-left: 6vw;
     margin-right: 1vw;
+    object-fit: contain;
 }
 
 .descricao {
@@ -307,29 +370,34 @@ body .outros-produtos .produtos .estrelass img{
     color: rgb(65, 64, 64);
 }
 
-.descricao h1{
+.descricao h1 {
     font-size: 2.3vw;
 }
 
-.descricao p{
+.descricao p,
+.descricao li {
     font-size: 2vw;
 }
 
-.descricao li{
+.descricao li {
     margin-left: 2vw;
-    font-size: 2vw;
 }
 
-#compra{
-    margin-right: vw;
+/* ================================
+   CAIXA DE COMPRA
+================================ */
+
+#compra {
     border: 2px solid black;
     border-radius: 25px;
     padding: 25px;
     padding-bottom: 50px;
     background-color: #f3aa65 !important;
+    flex: 1;
+    min-width: 250px;
 }
 
-#compra h1{
+#compra h1 {
     font-size: 2vw;
     text-align: center;
 }
@@ -338,7 +406,7 @@ body .outros-produtos .produtos .estrelass img{
     text-decoration: underline;
 }
 
-#compra p{
+#compra p {
     margin-left: 2.2vw;
     font-size: 1vw;
 }
@@ -354,39 +422,44 @@ body .outros-produtos .produtos .estrelass img{
 }
 
 #pagamento {
-    font-size: 1.2;
+    font-size: 1.2vw;
     color: rgb(65, 64, 64);
 }
 
-#compra label{
+#compra label {
     font-size: 2vw;
     margin-left: 1vw;
 }
 
-.formulario input{
+.formulario input {
     height: 2vw;
     margin-top: 1.4vw;
     font-size: 1vw;
+    padding: 0.3vw;
 }
 
-.formulario .botao{
-    justify-items: center;
+.formulario .botao {
+    display: flex;
+    justify-content: center;
 }
 
-.formulario button{
+.formulario button {
     display: flex;
     flex-direction: column;
+    align-items: center;
     border: 1.5px solid black;
     font-size: 1.6vw;
     margin-top: 1vw;
     border-radius: 10px;
+    cursor: pointer;
+    padding: 0.5vw 1vw;
 }
 
 #quantidade {
     font-size: 5vw;
 }
 
-#qinput{
+#qinput {
     background-color: #f3aa65;
 }
 
@@ -398,6 +471,7 @@ body .outros-produtos .produtos .estrelass img{
 #add-car {
     display: flex;
     flex-direction: column;
+    align-items: center;
     font-size: 1.6vw;
     margin-top: 1vw;
     border: 1.5px solid black;
@@ -405,30 +479,35 @@ body .outros-produtos .produtos .estrelass img{
     background-color: #f7cca6;
     text-decoration: none;
     color: black;
+    padding: 0.5vw 1vw;
 }
 
-#add-car:hover {
+#add-car:hover,
+.formulario button:hover {
     font-size: 1.7vw;
 }
 
-.formulario button:hover{
-    font-size: 1.7vw;
-}
+/* ================================
+   AVALIAÇÕES
+================================ */
 
-/*avaliacoes----*/
+.estrelas-avaliacao {
+    display: flex;
+    align-items: center;
+    gap: 0.2vw;
+}
 
 .estrelas-avaliacao img {
     height: 1.2vw;
+    width: auto;
     margin: 0;
-    gap: 0.2vw;
 }
 
 .texto-avaliacao {
     color: rgb(65, 64, 64);
     font-size: 2vw;
     display: block;
-    margin: 1vw;
-    margin-left: 0vw;
+    margin: 1vw 0;
 }
 
 .avaliacao {
@@ -438,26 +517,26 @@ body .outros-produtos .produtos .estrelass img{
     gap: 0.5vw;
 }
 
+/* ================================
+   CADASTRO / LOGIN
+================================ */
 
-/*----------------------------------------*/
-
-/*cadastro ------------*/
-
-.corpo{
+.corpo {
     display: flex;
     justify-content: center;
-    margin: 5;
+    margin: 5px;
     padding-bottom: 25vh;
 }
 
-.login{
+.login {
     width: 25vw;
     margin-top: 2vw;
     border: 2px solid black;
     border-radius: 10px;
-    padding: 1vw; 
+    padding: 1vw;
 }
-.formulario{
+
+.formulario {
     border: none;
 }
 
@@ -465,7 +544,7 @@ body .outros-produtos .produtos .estrelass img{
     text-align: center;
 }
 
-.campo{
+.campo {
     display: grid;
     grid-template-columns: max-content 1fr;
     align-items: center;
@@ -473,14 +552,13 @@ body .outros-produtos .produtos .estrelass img{
     margin-bottom: 1vw;
 }
 
-.campo label{
+.campo label {
     text-align: right;
 }
 
-.campo input{
+.campo input {
     width: 100%;
     padding: 0.4vw;
-    box-sizing: border-box;
 }
 
 .login .botao {
@@ -499,7 +577,9 @@ body .outros-produtos .produtos .estrelass img{
     font-size: 2.5vw;
 }
 
-/*rodape ---*/
+/* ================================
+   RODAPÉ / OPÇÕES
+================================ */
 
 #opcoes {
     display: block;
@@ -514,17 +594,19 @@ body .outros-produtos .produtos .estrelass img{
     color: rgb(71, 0, 0);
     font-size: 1.1vw;
 }
-/*--------------------------*/
 
-/* carrinhoooo*/
+/* ================================
+   CARRINHO
+================================ */
 
-.chasi{
+.chasi {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
-.chasi .compra{
-    width: 90%;
+.chasi .compra {
+    width: calc(90% - 2vw);
     border: 3px solid black;
     border-radius: 10px;
     margin-top: 2vw;
@@ -533,43 +615,44 @@ body .outros-produtos .produtos .estrelass img{
     display: flex;
 }
 
-.chasi .compra img{
+.chasi .compra img {
     height: 10vw;
+    width: auto;
 }
 
-.chasi .esquerda{
-    margin:1vw;
+.chasi .esquerda {
+    margin: 1vw;
     display: flex;
 }
 
-.chasi .dados{
+.chasi .dados {
     margin-top: 1vw;
     margin-left: 1vw;
 }
 
-.chasi .finalizar p{
+.chasi .finalizar p {
     font-size: 2vw;
     margin-right: 2vw;
     padding: 1vw;
 }
 
-.chasi label{
+.chasi label {
     font-size: 1.7vw;
 }
 
-.chasi form{
+.chasi form {
     display: flex;
     flex-direction: column;
     margin-left: 2vw;
 }
 
-.chasi .botao{
-    position: fixed;
-    top: 45vw;
-    left: 70vw;
+.chasi .botao {
+    display: flex;
+    justify-content: center;
+    margin: 2vw;
 }
 
-.chasi .botao button{
+.chasi .botao button {
     font-size: 2vw;
     background-color: #d8a26e;
     cursor: pointer;
@@ -580,7 +663,8 @@ body .outros-produtos .produtos .estrelass img{
 .chasi .cep {
     display: flex;
     align-items: center;
-    margin-left: 61vw;
+    margin-left: auto;
+    margin-right: 3vw;
     margin-top: 2vw;
     gap: 0.5vw;
 }
@@ -594,137 +678,203 @@ body .outros-produtos .produtos .estrelass img{
 .chasi .frete {
     font-size: 1.5vw;
     color: rgb(65, 64, 64);
-    margin-left: 60vw;
+    margin-left: auto;
+    margin-right: 3vw;
 }
 
 .chasi .total {
     font-size: 2vw;
     font-weight: bold;
     color: black;
-    margin-left: 60vw;
+    margin-left: auto;
+    margin-right: 3vw;
 }
 
+/* ================================
+   MENU SUSPENSO DA PESQUISA
+================================ */
 
-/*=========================================*/
+.search-container {
+    position: relative;
+}
 
-/* Estilo básico para o menu suspenso */
-.search-container { position: relative; width: 300px; }
 .autocomplete-box {
-  position: absolute;
-  width: 100%;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-top: none;
-  max-height: 200px;
-  overflow-y: auto;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.item-produto {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  text-decoration: none;
-  color: #333;
-}
-.item-produto:hover { background-color: #f0f0f0; }
-.item-produto img { widt0h: 32px; height: 32px; object-fit: cover; border-radius: 4px; }
 
-/* --- css mobile --- */
+.item-produto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+}
+
+.item-produto:hover {
+    background-color: #f0f0f0;
+}
+
+.item-produto img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* ================================
+   CSS MOBILE
+================================ */
 
 @media (max-width: 768px) {
 
-    /* 1. Ajustes Gerais e Fontes */
     body {
-        font-size: 16px; 
+        font-size: 16px;
+        overflow-x: hidden;
     }
 
-    /* 2. Menu Superior (Header) */
+    /* Header */
     header .menu-superior {
-        flex-direction: column; /* Empilha os elementos do topo */
+        flex-direction: column;
         align-items: center;
         gap: 15px;
         padding: 10px;
+        height: auto;
     }
 
     header .imagem-header img {
-        width: 15px; /* Tamanho fixo em pixels para não sumir */
+        width: 120px;
+        margin: 5px;
+    }
+
+    header .barra-pesquisa-header,
+    header .search-container {
+        width: 90%;
     }
 
     header .barra-pesquisa-header form {
-        width: 90%;
+        width: 100%;
         justify-content: center;
     }
 
-    header .barra-pesquisa-header input {
-        width: 80% !important;
+    header .barra-pesquisa-header input,
+    header .search-container input {
+        width: 100% !important;
+        height: 40px;
         font-size: 16px;
+        margin-top: 0;
     }
 
     header .barra-pesquisa-header label {
         font-size: 18px;
     }
 
+    header .icons-header {
+        gap: 15px;
+        padding: 5px;
+    }
+
     header .icons-header a {
         font-size: 18px;
     }
 
-    /* Espaçamentos das barras de linha (hr) */
-    header #barra-de-cima, 
+    header #barra-de-cima,
     header #barra-de-baixo {
         margin-top: 15px;
         margin-bottom: 15px;
     }
 
-    /* 3. Menu Inferior / Links do Cabeçalho */
-    header .menu-inferior .botoes {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
+ /* Menu inferior */
+    header .menu-inferior {
+        width: 100%;
     }
 
-    header .menu-inferior .botoes a,
+    header .menu-inferior .botoes-rodape {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
     header .menu-inferior .botoes-rodape #Contato,
     header .menu-inferior .botoes-rodape #Sobre {
-        font-size: 16px !important;
-        text-align: center;
+        font-size: 1.7vw;
+        text-decoration: none;
+        color: black;
+        margin: 2vw 0;
+    }
+/*teste*/
+    #Contato,
+    #Sobre {
+        font-size: 1.7vw;
+        text-decoration: none;
+        color: black;
     }
 
-    /* 4. Seção de Promoções (Banners e Grades) */
+    #Contato {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-100%);
+    }
+
+    #Sobre {
+        position: absolute;
+        left: 50%;
+        margin-left: 30px;
+    }
+
+
+
+    /* Promoções */
     body .promos {
-        flex-direction: column; /* Coloca o banner principal acima dos outros */
+        flex-direction: column;
         align-items: center;
     }
 
     body .promos .promo-pai img {
         width: 90%;
         height: auto;
-        margin-left: 0; /* Centraliza */
-        margin-right: 0;
+        margin: 20px auto 0;
     }
 
     body .promos .promo-filho {
         justify-content: center;
         margin-left: 0;
         gap: 15px;
+        width: 100%;
     }
 
     body .promos .promo-filho img {
-        width: 110px; /* Define tamanho fixo para os quadradinhos */
+        width: 110px;
         height: 110px;
     }
 
-    /* Reseta as posições absolutas das estrelas sobrepostas para não sumirem da tela */
-    #esquerda, #direita, #cima,
-    #estrela1, #estrela2, #buner {
-        position: static !important; 
+    #esquerda,
+    #direita,
+    #cima,
+    #estrela1,
+    #estrela2,
+    #buner {
+        position: static !important;
         margin: 5px !important;
         width: auto !important;
         height: auto !important;
     }
 
-    /* 5. Lista de Produtos Gerais */
+    /* Produtos */
     body .outros-produtos h1 {
         font-size: 24px;
         text-align: center;
@@ -732,6 +882,11 @@ body .outros-produtos .produtos .estrelass img{
 
     body .produtos {
         justify-content: center;
+        padding: 10px;
+    }
+
+    body .produtos .um-produto {
+        margin: 5px;
     }
 
     body .outros-produtos .produtos img {
@@ -740,9 +895,15 @@ body .outros-produtos .produtos .estrelass img{
         margin: 10px;
     }
 
-    /* 6. Página de um Produto Único (Ex: Rabanete) */
+    body .outros-produtos .produtos .estrelass img {
+        width: auto;
+        height: 12px;
+        margin: 0 !important;
+    }
+
+    /* Produto único */
     .produto-unico {
-        flex-direction: column; /* Foto em cima, dados embaixo */
+        flex-direction: column;
         align-items: center;
         padding: 15px;
     }
@@ -754,7 +915,7 @@ body .outros-produtos .produtos .estrelass img{
     .produto-unico .img-produto img {
         height: 250px;
         width: auto;
-        margin: 0 auto 20px auto;
+        margin: 0 auto 20px;
         display: block;
     }
 
@@ -763,23 +924,42 @@ body .outros-produtos .produtos .estrelass img{
         text-align: center;
     }
 
-    #pix, #parcela, #avaliacao {
+    #pix,
+    #parcela,
+    #avaliacao {
         font-size: 16px;
         margin-left: 10px;
     }
 
-    .descricao h1 { font-size: 20px; }
-    .descricao p, .descricao li { font-size: 16px; }
+    .descricao {
+        width: 100%;
+    }
 
-    /* Caixa de Compra Lateral (agora fica embaixo) */
+    .descricao h1 {
+        font-size: 20px;
+    }
+
+    .descricao p,
+    .descricao li {
+        font-size: 16px;
+    }
+
     #compra {
         width: 100%;
+        min-width: 0;
         margin-right: 0;
         padding: 20px;
     }
 
-    #compra h1 { font-size: 20px; }
-    #compra p, #entrega, #frete, #pagamento, #compra label {
+    #compra h1 {
+        font-size: 20px;
+    }
+
+    #compra p,
+    #entrega,
+    #frete,
+    #pagamento,
+    #compra label {
         font-size: 16px;
         margin-left: 0;
     }
@@ -789,7 +969,8 @@ body .outros-produtos .produtos .estrelass img{
         font-size: 16px;
     }
 
-    .formulario button, #add-car {
+    .formulario button,
+    #add-car {
         font-size: 16px;
         padding: 12px;
         width: 100%;
@@ -797,18 +978,23 @@ body .outros-produtos .produtos .estrelass img{
     }
 
     /* Avaliações */
-    .texto-avaliacao, .avaliacao {
+    .texto-avaliacao,
+    .avaliacao {
         font-size: 16px;
     }
 
-    /* 7. Tela de Cadastro / Login */
+    .estrelas-avaliacao img {
+        height: 14px;
+    }
+
+    /* Login */
     .login {
-        width: 90vw; /* Ocupa quase a largura toda do celular */
+        width: 90vw;
         padding: 20px;
     }
 
     .campo {
-        grid-template-columns: 1fr; /* Coloca o texto acima do input */
+        grid-template-columns: 1fr;
         gap: 5px;
     }
 
@@ -825,8 +1011,80 @@ body .outros-produtos .produtos .estrelass img{
         width: 100%;
         padding: 12px;
     }
-    
+
     #opcoes {
         font-size: 14px;
+    }
+
+    /* Carrinho */
+    .chasi {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chasi .compra {
+        width: 94%;
+        margin-left: 0;
+        flex-direction: column;
+    }
+
+    .chasi .esquerda {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chasi .compra img {
+        height: 150px;
+    }
+
+    .chasi .dados {
+        margin: 10px;
+        text-align: center;
+    }
+
+    .chasi label {
+        font-size: 16px;
+    }
+
+    .chasi form {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .chasi .botao {
+        position: static;
+        margin: 15px;
+    }
+
+    .chasi .botao button {
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+
+    .chasi .cep,
+    .chasi .frete,
+    .chasi .total {
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .chasi .cep {
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .chasi .cep input {
+        width: 120px;
+        font-size: 16px;
+    }
+
+    .chasi .frete {
+        font-size: 16px;
+    }
+
+    .chasi .total {
+        font-size: 20px;
     }
 }

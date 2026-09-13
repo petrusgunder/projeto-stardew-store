@@ -1,6 +1,4 @@
-/* ================================
-   CONFIGURAÇÕES GERAIS
-================================ */
+/* CONFIGURAÇÕES GERAIS*/
 
 * {
     margin: 0;
@@ -21,9 +19,7 @@ img {
     max-width: 100%;
 }
 
-/* ================================
-   HEADER
-================================ */
+/* Header */
 
 header .menu-superior {
     display: flex;
@@ -38,79 +34,197 @@ header .imagem-header img {
     margin: 0.5vw;
 }
 
-header .barra-pesquisa-header form {
+/* Container da Busca */
+header .barra-pesquisa-header {
+    position: relative;
     margin: 0.5vw;
+}
+
+header .barra-pesquisa-header form {
+    margin: 0;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row; 
     align-items: center;
-}
-
-header .barra-pesquisa-header label {
-    font-size: 2.7vw;
-    margin-left: 0.5vw;
-}
-
-header .barra-pesquisa-header svg {
-    font-size: 2vw;
-    margin-bottom: 0.5vw;
+    gap: 0.6vw; 
 }
 
 header .barra-pesquisa-header input {
     background-color: #ffecc9;
-    margin-top: 0.5vw;
-    height: 2vw;
-    width: 60vw;
+    height: 2.2vw;
+    width: 22vw; 
     border: 1px solid #555;
     border-radius: 20px;
     padding: 0 1vw;
     outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+header .barra-pesquisa-header label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+header .barra-pesquisa-header svg {
+    width: 1.5vw;
+    height: 1.5vw;
+    fill: #333;
 }
 
 header .search-container {
     position: relative;
-    width: 60vw;
+    width: 22vw;
     margin: 0.5vw;
 }
 
 header .search-container input {
     width: 100%;
-    height: 2.5vw;
+    height: 2.2vw;
     padding: 0 1vw;
     background-color: #ffecc9;
     border: 1px solid #555;
     border-radius: 20px;
     outline: none;
     font-size: 1vw;
+    box-sizing: border-box;
 }
 
+/* Container da Busca */
+header .barra-pesquisa-header {
+    position: relative;
+    margin: 0.5vw;
+}
+
+header .barra-pesquisa-header form {
+    margin: 0;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 0.6vw; 
+}
+
+header .barra-pesquisa-header input {
+    background-color: #ffecc9;
+    height: 2.2vw;
+    width: 22vw; 
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 0 1vw;
+    outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+header .barra-pesquisa-header label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+header .barra-pesquisa-header svg {
+    width: 1.5vw;
+    height: 1.5vw;
+    fill: #333;
+}
+
+header .search-container {
+    position: relative;
+    width: 22vw;
+    margin: 0.5vw;
+}
+
+header .search-container input {
+    width: 100%;
+    height: 2.2vw;
+    padding: 0 1vw;
+    background-color: #ffecc9;
+    border: 1px solid #555;
+    border-radius: 20px;
+    outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+/* Ajustes da BOSTA da barra de pesquisa que odio*/
+
+header .barra-pesquisa-header .autocomplete-box {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 22vw;
+    margin-top: 0.3vw;
+    background-color: #fff8e7;
+    border: 2px solid #b85c37;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    max-height: 15vw; 
+    overflow-y: auto;
+    z-index: 1000; 
+}
+
+header .barra-pesquisa-header .autocomplete-box:empty {
+    display: none;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto {
+    display: flex;
+    align-items: center;
+    padding: 0.5vw 0.8vw;
+    text-decoration: none;
+    color: #4a2e18;
+    font-size: 0.9vw;
+    border-bottom: 1px solid #f0d8bd;
+    transition: background-color 0.2s;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto:last-child {
+    border-bottom: none;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto:hover {
+    background-color: #f7e3cc;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto img {
+    width: 1.8vw;
+    height: 1.8vw;
+    object-fit: contain;
+    margin-right: 0.6vw;
+    image-rendering: pixelated; /* Mantém a nitidez do Stardew Valley */
+}
+
+/* Ícones */
 header .icons-header {
     display: flex;
     align-items: center;
-    gap: 1vw;
+    gap: 1.2vw;
     cursor: pointer;
     margin: 0.5vw;
-    padding: 1vw;
+    padding: 0.5vw;
+    flex-shrink: 0; 
 }
 
 header .icons-header a {
     color: black;
-    font-size: 1.4vw;
+    font-size: 1.8vw;
     text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 header .icons-header a:hover {
     color: rgb(71, 0, 0);
 }
 
-/* ================================
-   MENU
-================================ */
+/* Menu*/
 
 hr {
     background-color: brown;
     width: 100%;
     height: 2px;
     border: none;
+    margin-top: 3px;
 }
 
 header #barra-de-cima {
@@ -140,28 +254,30 @@ header .menu-inferior .botoes a:hover {
     color: rgb(71, 0, 0);
 }
 
-header .menu-inferior .botoes-rodape {
+/* Centralização do Rodapé */
+.menu-inferior .botoes-rodape {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 40px;
+    width: 100%;
+    padding: 1vw 0;
 }
 
-header .menu-inferior .botoes-rodape #Contato,
-header .menu-inferior .botoes-rodape #Sobre {
+.menu-inferior .botoes-rodape #Contato,
+.menu-inferior .botoes-rodape #Sobre {
     font-size: 1.7vw;
     text-decoration: none;
     color: black;
-    margin: 1vw 3vw;
+    margin: 0;
 }
 
-header .menu-inferior .botoes-rodape a:hover {
+.menu-inferior .botoes-rodape a:hover {
     font-size: 1.8vw;
     color: rgb(71, 0, 0);
 }
 
-/* ================================
-   PROMOÇÕES
-================================ */
+/* PROMOÇÕES*/
 
 body .promos {
     display: flex;
@@ -178,69 +294,54 @@ body .promos .promo-pai img {
 }
 
 body .promos .promo-filho {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    margin-left: 2vw;
+    display: grid;
+    grid-template-columns: repeat(2, 14vw); 
+    gap: 2vw 3vw; 
+    margin-left: 10vw; 
     margin-top: 2vw;
-    gap: 1vw;
+}
+
+.promo-filho .card-promo {
+    position: relative;
+    width: 14vw;
+    height: 14vw;
+}
+
+.promo-filho .card-promo img {
     width: 100%;
-}
-
-body .promos .promo-filho img {
-    height: 13vw;
-    width: 13vw;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     border-radius: 20px;
-    flex: none;
     object-fit: cover;
+    display: block;
 }
 
-body .promos .promo-filho a {
-    cursor: pointer;
+.promo-filho .card-promo:nth-child(3),
+.promo-filho .card-promo:nth-child(4) {
+    transform: translateX(5vw);
 }
 
-#direita {
-    margin-right: 2vw;
-}
-
-#esquerda {
-    margin-left: 2vw;
-}
-
-#cima {
-    margin-left: 2vw;
-}
-
-body .promo-filho .sobreposto img {
-    height: 4vw;
-    width: auto;
+/* Posicionamento dos Selos e Estrelas no canto inferior direito */
+.promo-filho .selo-estrela {
     position: absolute;
+    bottom: -0.5vw;
+    right: -0.5vw;
+    width: 3.5vw !important;
+    height: auto !important;
     z-index: 10;
-    background-color: transparent !important;
-    border-radius: 0;
+    pointer-events: none;
 }
 
-#estrela1 {
-    top: 10vw;
-    left: 12vw;
+.promo-filho .selo-banner {
+    position: absolute;
+    bottom: -0.8vw;
+    right: -1vw;
+    width: 7vw !important;
+    height: 4vw !important;
+    z-index: 10;
+    pointer-events: none;
 }
 
-#estrela2 {
-    top: 25vw;
-    left: 14vw;
-}
-
-#buner {
-    top: 11vw;
-    left: 25vw;
-    width: 13vw;
-}
-
-/* ================================
-   PRODUTOS
-================================ */
+/*PRODUTOS*/
 
 body .produtos {
     display: flex;
@@ -732,9 +833,7 @@ body .outros-produtos .produtos .estrelass img {
     border-radius: 4px;
 }
 
-/* ================================
-   CSS MOBILE
-================================ */
+/* CSS MOBILE desgraçado chorei fazendo isso */
 
 @media (max-width: 768px) {
 
@@ -744,104 +843,150 @@ body .outros-produtos .produtos .estrelass img {
     }
 
     /* Header */
+
     header .menu-superior {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 10px;
-        height: auto;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 10px 15px !important;
+        gap: 10px !important;
+    }
+
+    header .imagem-header {
+        width: 100% !important;
+        text-align: center !important;
     }
 
     header .imagem-header img {
-        width: 120px;
-        margin: 5px;
+        width: 110px !important;
+        margin: 0 auto !important;
     }
 
     header .barra-pesquisa-header,
     header .search-container {
-        width: 90%;
+        flex: 1 !important;
+        width: auto !important;
+        margin: 0 !important;
+        position: relative !important;
     }
 
     header .barra-pesquisa-header form {
-        width: 100%;
-        justify-content: center;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important;
     }
 
     header .barra-pesquisa-header input,
     header .search-container input {
         width: 100% !important;
-        height: 40px;
-        font-size: 16px;
-        margin-top: 0;
+        height: 38px !important;
+        font-size: 14px !important;
+        padding: 0 12px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
     }
 
     header .barra-pesquisa-header label {
-        font-size: 18px;
+        display: flex !important;
+        align-items: center !important;
+        cursor: pointer;
+    }
+
+    header .barra-pesquisa-header svg {
+        width: 20px !important;
+        height: 20px !important;
+        flex-shrink: 0 !important;
     }
 
     header .icons-header {
-        gap: 15px;
-        padding: 5px;
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 0 !important;
+        margin-left: 5px !important;
     }
 
-    header .icons-header a {
-        font-size: 18px;
+    header .icons-header a,
+    header .icons-header svg,
+    header .icons-header img {
+        font-size: 20px !important;
+        width: 22px !important;
+        height: 22px !important;
     }
 
-    header #barra-de-cima,
-    header #barra-de-baixo {
-        margin-top: 15px;
-        margin-bottom: 15px;
+    header .barra-pesquisa-header .autocomplete-box {
+        width: 100% !important;
+        top: 100% !important;
+        left: 0 !important;
+        max-height: 200px !important;
+        z-index: 1000 !important;
+        background-color: #fff8e7 !important;
+        border: 2px solid #b85c37 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
     }
 
- /* Menu inferior */
+    header .barra-pesquisa-header .autocomplete-box .item-produto {
+        padding: 10px !important;
+        font-size: 14px !important;
+    }
+
+    header .barra-pesquisa-header .autocomplete-box .item-produto img {
+        width: 28px !important;
+        height: 28px !important;
+        margin-right: 10px !important;
+    }
+
+    /* Menu inferior */
+
     header .menu-inferior {
-        width: 100%;
+        width: 100% !important;
+        padding: 8px 0 !important;
     }
 
-    header .menu-inferior .botoes-rodape {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0;
+    .menu-inferior,
+    .menu-inferior nav,
+    .menu-inferior ul,
+    .menu-inferior .botoes-rodape {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px 18px !important; 
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 5px 10px !important;
+        list-style: none !important;
     }
 
-    header .menu-inferior .botoes-rodape #Contato,
-    header .menu-inferior .botoes-rodape #Sobre {
-        font-size: 1.7vw;
-        text-decoration: none;
-        color: black;
-        margin: 2vw 0;
-    }
-/*teste*/
-    #Contato,
-    #Sobre {
-        font-size: 1.7vw;
-        text-decoration: none;
-        color: black;
-    }
+    /* Formatação individual  */
 
-    #Contato {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-100%);
+    .menu-inferior a,
+    .menu-inferior li,
+    .menu-inferior p,
+    .menu-inferior span,
+    .menu-inferior .botoes-rodape #Contato,
+    .menu-inferior .botoes-rodape #Sobre {
+        display: inline-block !important;
+        font-size: 15px !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+        color: #000 !important;
+        margin: 0 !important;
+        padding: 2px 4px !important;
+        white-space: nowrap !important; 
     }
 
-    #Sobre {
-        position: absolute;
-        left: 50%;
-        margin-left: 30px;
-    }
-
-
-
-    /* Promoções */
+   /* Promo */
     body .promos {
         flex-direction: column;
         align-items: center;
+        margin-bottom: 15px !important; 
     }
 
     body .promos .promo-pai img {
@@ -851,57 +996,89 @@ body .outros-produtos .produtos .estrelass img {
     }
 
     body .promos .promo-filho {
-        justify-content: center;
-        margin-left: 0;
+        grid-template-columns: repeat(2, 120px);
         gap: 15px;
-        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+        margin-bottom: 2px !important; 
+        justify-content: center;
     }
 
-    body .promos .promo-filho img {
-        width: 110px;
-        height: 110px;
+    .promo-filho .card-promo {
+        width: 120px;
+        height: 120px;
     }
 
-    #esquerda,
-    #direita,
-    #cima,
-    #estrela1,
-    #estrela2,
-    #buner {
-        position: static !important;
-        margin: 5px !important;
-        width: auto !important;
+    .promo-filho .card-promo:nth-child(3),
+    .promo-filho .card-promo:nth-child(4) {
+        transform: none;
+    }
+
+    .promo-filho .selo-estrela {
+        width: 35px !important;
+        bottom: -5px;
+        right: -5px;
+    }
+
+    .promo-filho .selo-banner {
+        width: 95px !important; 
         height: auto !important;
+        bottom: -10px !important;
+        right: -15px !important;
+        z-index: 10 !important;
     }
 
     /* Produtos */
-    body .outros-produtos h1 {
-        font-size: 24px;
-        text-align: center;
+    body .outros-produtos h1,
+    body .produtos-container h1,
+    body h1 {
+        font-size: 24px !important;
+        text-align: center !important;
     }
 
-    body .produtos {
-        justify-content: center;
-        padding: 10px;
+    body .produtos,
+    body .lista-produtos,
+    body .grid-produtos {
+        display: flex !important;
+        flex-direction: column !important; 
+        align-items: center !important;     
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+        margin: 0 auto !important;
     }
 
-    body .produtos .um-produto {
-        margin: 5px;
+    body .produtos .um-produto,
+    body .um-produto,
+    body .card-produto {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;     
+        text-align: center !important;
+        margin: 15px auto !important;
+        width: 100% !important;
     }
 
-    body .outros-produtos .produtos img {
-        width: 130px;
-        height: 130px;
-        margin: 10px;
+    body .outros-produtos .produtos img,
+    body .produtos img,
+    body .um-produto img {
+        width: 130px !important;
+        height: 130px !important;
+        margin: 0 auto 10px auto !important;
+        display: block !important;
     }
 
-    body .outros-produtos .produtos .estrelass img {
-        width: auto;
-        height: 12px;
-        margin: 0 !important;
+    body .outros-produtos .produtos .estrelass img,
+    body .produtos .estrelas img,
+    body .um-produto .estrelass img {
+        width: auto !important;
+        height: 12px !important;
+        margin: 5px auto !important;
+        display: inline-block !important;
     }
 
     /* Produto único */
+
     .produto-unico {
         flex-direction: column;
         align-items: center;
@@ -1016,75 +1193,123 @@ body .outros-produtos .produtos .estrelass img {
         font-size: 14px;
     }
 
-    /* Carrinho */
+    /* Carrinho Mobile */
     .chasi {
         flex-direction: column;
         align-items: center;
+        width: 100% !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
     }
 
     .chasi .compra {
-        width: 94%;
-        margin-left: 0;
-        flex-direction: column;
+        width: 100% !important;
+        margin-left: 0 !important;
+        flex-direction: column !important;
     }
 
     .chasi .esquerda {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
     .chasi .compra img {
-        height: 150px;
+        height: 150px !important;
     }
 
     .chasi .dados {
-        margin: 10px;
-        text-align: center;
+        margin: 10px !important;
+        text-align: center !important;
     }
 
     .chasi label {
-        font-size: 16px;
+        font-size: 16px !important;
     }
 
     .chasi form {
-        margin-left: 0;
-        width: 100%;
+        margin-left: 0 !important;
+        width: 100% !important;
     }
 
     .chasi .botao {
-        position: static;
-        margin: 15px;
+        position: static !important;
+        margin: 15px !important;
     }
 
     .chasi .botao button {
-        font-size: 18px;
-        padding: 8px 15px;
+        font-size: 18px !important;
+        padding: 10px 20px !important;
+        width: 100% !important;
     }
 
     .chasi .cep,
+    .chasi .cupom,
+    .chasi form:has(input) {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin: 10px 0 !important;
+        padding: 0 !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+    }
+
+    .chasi .cep label,
+    .chasi .cupom label,
+    .chasi form label,
+    .chasi .cep span,
+    .chasi .cupom span {
+        min-width: 65px !important;
+        text-align: right !important;
+        font-size: 16px !important;
+        margin: 0 !important;
+    }
+
+
+    .chasi .cep input,
+    .chasi .cupom input,
+    .chasi form input[type="text"] {
+        width: 130px !important;
+        height: 36px !important;
+        font-size: 14px !important;
+        padding: 0 8px !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    .chasi .cep button,
+    .chasi .cupom button,
+    .chasi .cep input[type="submit"],
+    .chasi .cupom input[type="submit"],
+    .chasi form button {
+        height: 30px !important;
+        padding: 0 10px !important;
+        font-size: 11px !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        cursor: pointer;
+    }
+
     .chasi .frete,
-    .chasi .total {
-        margin-left: 0;
-        margin-right: 0;
-        justify-content: center;
-        text-align: center;
+    .chasi .frete p,
+    .chasi .frete label,
+    .chasi .frete span {
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        margin: 12px 0 5px 0 !important;
     }
 
-    .chasi .cep {
-        flex-wrap: wrap;
-        padding: 10px;
-    }
-
-    .chasi .cep input {
-        width: 120px;
-        font-size: 16px;
-    }
-
-    .chasi .frete {
-        font-size: 16px;
-    }
-
-    .chasi .total {
-        font-size: 20px;
+    .chasi .total,
+    .chasi .total p,
+    .chasi .total span,
+    .chasi .total h2 {
+        font-size: 22px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin: 10px 0 !important;
     }
 }

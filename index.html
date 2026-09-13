@@ -7,92 +7,85 @@
     <link rel="icon" href="imagens/header/logo-title.png">
 
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <header>
 
-        <div class="menu-superior">
-            <div class="search-container">
-            <input type="text" id="busca" placeholder="Buscar produto..." autocomplete="off">
-            <div id="resultados" class="autocomplete-box"></div>
-        </div>
+<div class="menu-superior">
+    <div class="barra-pesquisa-header">
+        <form onsubmit="event.preventDefault();">
+            <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+            <label for="busca">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </label>
+        </form>
+        <div id="resultados" class="autocomplete-box"></div>
+    </div>
 
-            <div class="icons-header">
-
-                <a href="outras paginas/login.html"><i class="bi bi-person-circle"></i></a>
-
-                <a href="outras paginas/carrinho.html"><i class="bi bi-cart"></i></a>
-
-            </div>
-        </div>
-
+    <div class="icons-header">
+        <a href="outras paginas/login.html"><i class="bi bi-person-circle"></i></a>
+    <a href="outras paginas/carrinho.html"><i class="bi bi-cart"></i></a>
+    </div>
+</div>
         <hr id="barra-de-cima">
 
         <div class="menu-inferior">
-
             <div class="botoes">
-
                 <a href="#">Ofertas</a>
-
                 <a href="outras paginas/sementes.html">Sementes</a>
-
                 <a href="#">Animais</a>
-
                 <a href="#">Roupas</a>
-
                 <a href="#">Objetos</a>
-
                 <a href="#">Vender meu bau</a>
-
             </div>
-
         </div>
 
         <hr id="barra-de-baixo">
-
     </header>
 
     <div class="promos">
         <div class="promo-pai"><img src="imagens/promocoes/promo.png" alt=""></div>
     
         <div class="promo-filho">
+    <!-- Produto 1: Galinha Azul + Estrela -->
+    <div class="card-promo">
+        <a href="#"><img src="imagens/promocoes/galinha_azul.webp" alt="Galinha Azul"></a>
+        <img class="selo-estrela" src="imagens/promocoes/estrela.png" alt="Estrela">
+    </div>
 
-            <a href="#"><img id="cima" id="esquerda" src="imagens/promocoes/galinha_azul.webp" alt=""></a>
-            <span class="sobreposto"><img id="estrela1" src="imagens/promocoes/estrela.png" alt=""></span>
+    <!-- Produto 2: Chirivia + Estrela -->
+    <div class="card-promo">
+        <a href="#"><img src="imagens/promocoes/chirivia.png" alt="Chirivia"></a>
+        <img class="selo-estrela" src="imagens/promocoes/estrela.png" alt="Estrela">
+    </div>
 
-            <a href="#"><img id="direita" src="imagens/promocoes/chirivia.png" alt=""></a>
-            <span class="sobreposto"><img id="estrela2" src="imagens/promocoes/estrela.png" alt=""></span>
+    <!-- Produto 3: Colar -->
+    <div class="card-promo">
+        <a href="#"><img src="imagens/promocoes/colar.png" alt="Colar"></a>
+    </div>
 
-            <a href="#"><img id="esquerda" src="imagens/promocoes/colar.png" alt=""></a>
-
-            <a href="#"><img id="direita" src="imagens/promocoes/galinha.png" alt=""></a>
-            <span class="sobreposto"><img id="buner" src="imagens/promocoes/promo-buner.png" alt=""></span>
-
-        </div>
-
-        
-
+    <!-- Produto 4: Galinha + Banner 50% off -->
+    <div class="card-promo">
+        <a href="#"><img src="imagens/promocoes/galinha.png" alt="Galinha"></a>
+        <img class="selo-banner" src="imagens/promocoes/promo-buner.png" alt="Promoção">
+    </div>
+</div>
     </div>
     
     <hr>
 
     <div class="outros-produtos">
-
         <h1>Produtos para voce</h1>
 
         <div class="produtos">
-
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/achigan.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Achigan - 200 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -101,22 +94,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/meiaestrela.png" alt="">
                     <img src="imagens/promocoes/estrela_apagada.png" alt="">
-
                 </div>
-
             </div>
 
-
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/cha_laele.png" alt=""></a>
                 <a id="nome-link" href="#">
                     cha de ervas - 100 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -125,21 +112,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/meiaestrela.png" alt="">
-
                 </div>
-
             </div>
 
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/esturjao.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Esturjao - 400 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -148,22 +130,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
-
                 </div>
-
             </div>
 
-
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/fragmento_prismatico.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Fragmento prismatico - 2000 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -172,21 +148,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
-
                 </div>
-
             </div>
 
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/galinha_tula.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Galinha nula - 130 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -195,22 +166,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela_apagada.png" alt="">
                     <img src="imagens/promocoes/estrela_apagada.png" alt="">
                     <img src="imagens/promocoes/estrela_apagada.png" alt="">
-
                 </div>
-
             </div>
 
-
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/grande_abobora.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Abobora - 600 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -219,21 +184,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/meiaestrela.png" alt="">
-
                 </div>
-
             </div>
 
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/mascara de goblin.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Mascara de goblin - 20 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -242,21 +202,16 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
-
                 </div>
-
             </div>
 
             <div class="um-produto">
-
                 <a href="#"><img src="imagens/produtos/vinho.png" alt=""></a>
                 <a id="nome-link" href="#">
                     Vinho - 700 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
@@ -265,73 +220,64 @@
                                         <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                                     </svg>
                 </a>
-
                 <div class="estrelass">
-
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
                     <img src="imagens/promocoes/estrela.png" alt="">
-
                 </div>
-
             </div>
-
-        </div>
-
-    </div>
-<hr id="barra-de-cima">
-<header>
-    <div class="menu-inferior">
-        <div class="botoes-rodape">
-
-            <a id="Contato" href="#">Contato</a>
-
-            <a id="Sobre" href="#">Sobre nós</a>
-
         </div>
     </div>
-</header>
+
+    <hr>
+    
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const produtos = [
+        {nome: "rabanete", url: "outras paginas/rabanete.html", img: "imagens/produtos/rabanete.png"},
+        {nome: "melao", url: 'index.html', img: "imagens/produtos/melao.png"},
+        {nome: "chirivia", url: 'index.html', img: "imagens/produtos/chirivia.png"},
+        {nome: "vagem", url: 'index.html', img: "imagens/produtos/vagem.png"},
+        {nome: "couve", url: 'index.html', img: "imagens/produtos/couve-flor.png"},
+        {nome: "uva", url: 'index.html', img: "imagens/produtos/uva.png"},
+        {nome: "abobora", url: 'index.html', img: "imagens/produtos/abobora.png"},
+        {nome: "mirtilo", url: 'index.html', img: "imagens/produtos/mirtilo.png"},
+    ];
+
+        const inputBusca = document.getElementById('busca');
+        const containerResultados = document.getElementById('resultados');
+
+        inputBusca.addEventListener('input', (e) => {
+          const termo = e.target.value.toLowerCase().trim();
+          containerResultados.innerHTML = '';
+
+          if (!termo) return;
+
+          const filtrados = produtos.filter(produto => 
+            produto.nome.toLowerCase().includes(termo)
+          );
+
+          filtrados.forEach(produto => {
+            const link = document.createElement('a');
+            link.href = produto.url;
+            link.className = 'item-produto';
+            link.innerHTML = `
+              <img src="${produto.img}" alt="${produto.nome}">
+              <span>${produto.nome}</span>
+            `;
+            containerResultados.appendChild(link);
+          });
+        });
+    </script>
 </body>
 </html>
-
-<script>
-
-const produtos = [
-    {nome:"rabanete", url:"/outras paginas/rabanete.html",img:"/imagens/produtos/rabanete.png"},
-    {nome:"melao", url:'#',img:"/imagens/produtos/melao.png"},
-    {nome:"chirivia", url:'#',img:"/imagens/produtos/chirivia.png"},
-    {nome:"vagem", url:'#',img:"/imagens/produtos/vagem.png"},
-    {nome:"couve", url:'#',img:"/imagens/produtos/couve-flor.png"},
-    {nome:"uva", url:'#',img:"/imagens/produtos/uva.png"},
-    {nome:"abobora", url:'#',img:"/imagens/produtos/abobora.png"},
-    {nome:"mirtilo", url:'#',img:"/imagens/produtos/mirtilo.png"},
-]
-
-const inputBusca = document.getElementById('busca');
-const containerResultados = document.getElementById('resultados');
-
-inputBusca.addEventListener('input', (e) => {
-  const termo = e.target.value.toLowerCase().trim();
-  containerResultados.innerHTML = '';
-
-  if (!termo) return;
-
-  const filtrados = produtos.filter(produto => 
-    produto.nome.toLowerCase().includes(termo)
-  );
-
-  filtrados.forEach(produto => {
-    const link = document.createElement('a');
-    link.href = produto.url;
-    link.className = 'item-produto';
-    link.innerHTML = `
-      <img src="${produto.img}" alt="${produto.nome}">
-      <span>${produto.nome}</span>
-    `;
-    containerResultados.appendChild(link);
-  });
-});
-
-</script>

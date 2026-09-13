@@ -17,22 +17,23 @@
 <body>
     <header>
         <div class="menu-superior">
-            <div class="barra-pesquisa-header">
-                <form>
-                    <label for="pesquisa">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </label>
-                    <input type="text" id="pesquisa">
-                </form>
-            </div>
+    <div class="barra-pesquisa-header">
+        <form onsubmit="event.preventDefault();">
+            <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+            <label for="busca">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </label>
+        </form>
+        <div id="resultados" class="autocomplete-box"></div>
+    </div>
 
-            <div class="icons-header">
-                <a href="login.html"><i class="bi bi-person-circle"></i></a>
-                <a href="carrinho.html"><i class="bi bi-cart"></i></a>
-            </div>
-        </div>
+    <div class="icons-header">
+        <a href="login.html"><i class="bi bi-person-circle"></i></a>
+    <a href="carrinho.html"><i class="bi bi-cart"></i></a>
+    </div>
+</div>
 
         <hr id="barra-de-cima">
 

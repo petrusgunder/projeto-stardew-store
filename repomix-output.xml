@@ -1,0 +1,2581 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+documentação/
+  README.md
+imagens/
+  header/
+    Logo_site.png
+    logo-title.png
+  produtos/
+    abobora.png
+    achigan.png
+    cha_laele.png
+    chirivia.png
+    couve-flor.png
+    esturjao.png
+    fragmento_prismatico.png
+    galinha_tula.png
+    grande_abobora.png
+    mascara_de_goblin.png
+    melao.png
+    mirtilo.png
+    rabanete.png
+    uva.png
+    vagem.png
+    vinho.png
+  promocoes/
+    chirivia.png
+    colar.png
+    estrela_apagada.png
+    estrela.png
+    galinha_azul.webp
+    galinha.png
+    meiaestrela.png
+    promo-buner.png
+    promo.png
+outras_paginas/
+  cadastro.php
+  carrinho.php
+  conect.php
+  login.php
+  logout.php
+  produtos.php
+  sementes.html
+index.php
+package.json
+style.css
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="documentação/README.md">
+# projeto-stardew-store
+</file>
+
+<file path="outras_paginas/cadastro.php">
+<?php
+session_start();
+require_once "conect.php";
+
+$mensagem_erro = "";
+$mensagem_alerta = "";
+
+if (isset($_SESSION['mensagem_auth'])) {
+    $mensagem_alerta = $_SESSION['mensagem_auth'];
+    unset($_SESSION['mensagem_auth']);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome          = trim($_POST['nome'] ?? '');
+    $email         = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+    $cpf           = preg_replace('/\D/', '', $_POST['cpf'] ?? '');
+    $dt_nascimento = trim($_POST['dt-nascimento'] ?? '');
+    $senha         = $_POST['senha'] ?? '';
+
+    if (empty($nome) || !$email || empty($cpf) || empty($dt_nascimento) || empty($senha)) {
+        $mensagem_erro = "Por favor, preencha todos os campos corretamente.";
+    } elseif (strlen($cpf) !== 11) {
+        $mensagem_erro = "O CPF deve conter exatamente 11 dígitos numéricos.";
+    } elseif (strlen($senha) < 6) {
+        $mensagem_erro = "A senha deve conter no mínimo 6 caracteres.";
+    } else {
+        $stmt_check = $conn->prepare("SELECT id, email, cpf FROM clientes WHERE email = ? OR cpf = ? LIMIT 1");
+        $stmt_check->bind_param("ss", $email, $cpf);
+        $stmt_check->execute();
+        $res = $stmt_check->get_result();
+
+        if ($res->num_rows > 0) {
+            $user_exist = $res->fetch_assoc();
+            if ($user_exist['email'] === $email) {
+                $mensagem_erro = "O e-mail informado já está cadastrado.";
+            } else {
+                $mensagem_erro = "O CPF informado já está cadastrado.";
+            }
+        } else {
+            $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+
+            $stmt_insert = $conn->prepare("INSERT INTO clientes (nome, email, cpf, data_nascimento, senha_hash) VALUES (?, ?, ?, ?, ?)");
+            $stmt_insert->bind_param("sssss", $nome, $email, $cpf, $dt_nascimento, $senha_hash);
+
+            if ($stmt_insert->execute()) {
+                $_SESSION['sucesso_cadastro'] = "Cadastro realizado com sucesso! Faça seu login para continuar.";
+                header("Location: login.php");
+                exit();
+            } else {
+                $mensagem_erro = "Erro interno ao salvar os dados. Tente novamente.";
+            }
+            $stmt_insert->close();
+        }
+        $stmt_check->close();
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar-se - Stardew Store</title>
+    <link rel="icon" href="../imagens/header/logo-title.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-superior">
+            <div class="imagem-header">
+                <a href="../index.php"><img src="../imagens/header/Logo_site.png" alt="Stardew Store Logo"></a>
+            </div>
+
+            <div class="barra-pesquisa-header">
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" id="busca" name="busca" placeholder="buscar produto" autocomplete="off">
+                    <label for="busca">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </label>
+                </form>
+                <div id="resultados" class="autocomplete-box"></div>
+            </div>
+
+            <div class="icons-header">
+                <a href="login.php"><i class="bi bi-person-circle"></i></a>
+                <a href="carrinho.php"><i class="bi bi-cart"></i></a>
+            </div>
+        </div>
+
+        <hr id="barra-de-cima">
+
+        <div class="menu-inferior">
+            <div class="botoes">
+                <a href="../index.php">Ofertas</a>
+                <a href="sementes.html">Sementes</a>
+                <a href="#">Animais</a>
+                <a href="#">Roupas</a>
+                <a href="#">Objetos</a>
+                <a href="#">Vender meu bau</a>
+            </div>
+        </div>
+
+        <hr id="barra-de-baixo">
+    </header>
+
+    <div class="corpo">
+        <div class="login">
+            <div class="formulario">
+                <h1 id="login-titulo">Criar conta</h1>
+
+                <?php if (!empty($mensagem_alerta)): ?>
+                    <div style="background-color: #fff8e7; border: 1.5px solid #b85c37; padding: 10px; border-radius: 8px; color: #4a2e18; margin-bottom: 15px; text-align: center; font-size: 1vw;">
+                        <?= htmlspecialchars($mensagem_alerta) ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($mensagem_erro)): ?>
+                    <div id="alerta-cadastro" style="display: block; color: red; margin: 10px 0; text-align: center; font-size: 1.1vw;">
+                        <?= htmlspecialchars($mensagem_erro) ?>
+                    </div>
+                <?php endif; ?>
+
+                <form action="cadastro.php" method="post">
+                    <div class="campo">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cpf">CPF:</label>
+                        <input type="text" id="cpf" name="cpf" maxlength="11" placeholder="Somente números" value="<?= htmlspecialchars($_POST['cpf'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="dt-nascimento">Data Nasc.:</label>
+                        <input type="date" id="dt-nascimento" name="dt-nascimento" value="<?= htmlspecialchars($_POST['dt-nascimento'] ?? '') ?>" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="senha">Senha:</label>
+                        <input type="password" id="senha" name="senha" required>
+                    </div>
+
+                    <div class="botao">
+                        <button type="submit">Registrar</button>
+                    </div>
+                </form>
+
+                <a id="opcoes" href="login.php">Já é cadastrado? clique aqui</a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+</file>
+
+<file path="outras_paginas/carrinho.php">
+<?php
+session_start();
+require_once "conect.php";
+
+// Exige autenticação de acordo com as regras de acesso do projeto
+if (!isset($_SESSION['cliente_id'])) {
+    $_SESSION['mensagem_auth'] = "Para acessar seu carrinho de compras, você precisa estar autenticado. Crie sua conta ou faça login para continuar suas compras com segurança.";
+    $_SESSION['redirect_after_auth'] = "carrinho.php";
+    header("Location: cadastro.php");
+    exit();
+}
+
+if (!isset($_SESSION['carrinho'])) {
+    $_SESSION['carrinho'] = [];
+}
+
+// Processamento de Ações do Carrinho (Adicionar, Atualizar, Remover)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $acao = $_POST['acao'] ?? '';
+
+    if ($acao === 'adicionar') {
+        $prod_id = filter_input(INPUT_POST, 'produto_id', FILTER_VALIDATE_INT);
+        $qtd     = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT) ?? 1;
+
+        if ($prod_id && $qtd > 0) {
+            $stmt = $conn->prepare("SELECT id, nome, preco, imagem FROM produtos WHERE id = ? AND ativo = 1 LIMIT 1");
+            $stmt->bind_param("i", $prod_id);
+            $stmt->execute();
+            $res = $stmt->get_result();
+
+            if ($res->num_rows === 1) {
+                if (isset($_SESSION['carrinho'][$prod_id])) {
+                    $_SESSION['carrinho'][$prod_id] += $qtd;
+                } else {
+                    $_SESSION['carrinho'][$prod_id] = $qtd;
+                }
+            }
+            $stmt->close();
+        }
+        header("Location: carrinho.php");
+        exit();
+
+    } elseif ($acao === 'atualizar') {
+        $prod_id = filter_input(INPUT_POST, 'produto_id', FILTER_VALIDATE_INT);
+        $qtd     = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT);
+
+        if ($prod_id) {
+            if ($qtd > 0) {
+                $_SESSION['carrinho'][$prod_id] = $qtd;
+            } else {
+                unset($_SESSION['carrinho'][$prod_id]);
+            }
+        }
+        header("Location: carrinho.php");
+        exit();
+
+    } elseif ($acao === 'remover') {
+        $prod_id = filter_input(INPUT_POST, 'produto_id', FILTER_VALIDATE_INT);
+        if ($prod_id && isset($_SESSION['carrinho'][$prod_id])) {
+            unset($_SESSION['carrinho'][$prod_id]);
+        }
+        header("Location: carrinho.php");
+        exit();
+    }
+}
+
+// Carregamento dos itens legítimos do carrinho direto do Banco de Dados
+$itens_carrinho = [];
+$subtotal_produtos = 0.0;
+
+if (!empty($_SESSION['carrinho'])) {
+    $ids = array_keys($_SESSION['carrinho']);
+    $in_clause = implode(',', array_fill(0, count($ids), '?'));
+    $types = str_repeat('i', count($ids));
+
+    $stmt = $conn->prepare("SELECT id, nome, preco, imagem FROM produtos WHERE id IN ($in_clause) AND ativo = 1");
+    $stmt->bind_param($types, ...$ids);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $id = (int)$row['id'];
+        $quantidade = (int)$_SESSION['carrinho'][$id];
+        $preco_unitario = (float)$row['preco'];
+        $subtotal_item = $preco_unitario * $quantidade;
+
+        $subtotal_produtos += $subtotal_item;
+
+        $img_src = $row['imagem'];
+        if (strpos($img_src, '../') !== 0) {
+            $img_src = '../' . ltrim($img_src, '/');
+        }
+
+        $itens_carrinho[] = [
+            'id'             => $id,
+            'nome'           => $row['nome'],
+            'preco_unitario' => $preco_unitario,
+            'quantidade'     => $quantidade,
+            'subtotal'       => $subtotal_item,
+            'imagem'         => $img_src
+        ];
+    }
+    $stmt->close();
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de compras - Stardew Store</title>
+    <link rel="icon" href="../imagens/header/logo-title.png">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-superior">
+            <div class="imagem-header">
+                <a href="../index.php"><img src="../imagens/header/Logo_site.png" alt="Stardew Store Logo"></a>
+            </div>
+
+            <div class="barra-pesquisa-header">
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+                    <label for="busca">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </label>
+                </form>
+                <div id="resultados" class="autocomplete-box"></div>
+            </div>
+
+            <div class="icons-header">
+                <a href="login.php" title="Minha Conta (<?= htmlspecialchars($_SESSION['cliente_nome']) ?>)"><i class="bi bi-person-circle"></i></a>
+                <a href="carrinho.php" title="Carrinho de Compras"><i class="bi bi-cart"></i></a>
+            </div>
+        </div>
+
+        <hr id="barra-de-cima">
+
+        <div class="menu-inferior">
+            <div class="botoes">
+                <a href="../index.php">Ofertas</a>
+                <a href="sementes.html">Sementes</a>
+                <a href="#">Animais</a>
+                <a href="#">Roupas</a>
+                <a href="#">Objetos</a>
+                <a href="#">Vender meu bau</a>
+            </div>
+        </div>
+
+        <hr id="barra-de-baixo">
+    </header>
+
+    <div class="chasi">
+        <?php if (!empty($itens_carrinho)): ?>
+            <?php foreach ($itens_carrinho as $item): ?>
+                <div class="compra" data-preco="<?= $item['preco_unitario'] ?>">
+                    <div class="esquerda">
+                        <div class="img">
+                            <img src="<?= htmlspecialchars($item['imagem']) ?>" alt="<?= htmlspecialchars($item['nome']) ?>">
+                        </div>
+                        <div class="dados">
+                            <h1><?= htmlspecialchars($item['nome']) ?></h1>
+                            <p>Preço unitário: R$: <?= number_format($item['preco_unitario'], 2, ',', '.') ?></p>
+                        </div>
+                    </div>
+                    <div class="finalizar" style="display: flex; align-items: center; gap: 1vw;">
+                        <form action="carrinho.php" method="post" style="display: inline-flex; align-items: center; gap: 0.5vw;">
+                            <input type="hidden" name="acao" value="atualizar">
+                            <input type="hidden" name="produto_id" value="<?= $item['id'] ?>">
+                            <label>Qtd: 
+                                <input type="number" name="quantidade" class="qtd-prod" value="<?= $item['quantidade'] ?>" min="1" max="99" style="width: 60px;" onchange="this.form.submit()">
+                            </label>
+                        </form>
+
+                        <p class="subtotal-item">R$: <?= number_format($item['subtotal'], 2, ',', '.') ?></p>
+
+                        <form action="carrinho.php" method="post" style="display: inline;">
+                            <input type="hidden" name="acao" value="remover">
+                            <input type="hidden" name="produto_id" value="<?= $item['id'] ?>">
+                            <button type="submit" style="background-color: #ff6b6b; color: white; border: 1px solid black; padding: 4px 8px; border-radius: 5px; cursor: pointer;" title="Remover item">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+            <!-- Painel de Fechamento -->
+            <div class="finalizar" style="width: 100%;">
+                <div class="cep">
+                    <label>CEP:</label>
+                    <input type="text" id="input-cep" placeholder="00000-000" maxlength="9">
+                    <button type="button" id="btn-cep">Calcular Frete</button>
+                </div>
+                <p id="msg-cep" style="margin-left: 60vw; font-size: 1vw; color: red;"></p>
+
+                <div class="cep" style="margin-top: 1vw;">
+                    <label>Cupom:</label>
+                    <input type="text" id="input-cupom" placeholder="Digite seu cupom">
+                    <button type="button" id="btn-cupom">Aplicar</button>
+                </div>
+                <p id="msg-cupom" style="margin-left: 60vw; font-size: 1vw; color: green;"></p>
+
+                <p class="frete" id="exibe-subtotal" style="font-size: 1.5vw; color: #4a2e18; margin-left: auto; margin-right: 3vw;">Subtotal Produtos: R$: <?= number_format($subtotal_produtos, 2, ',', '.') ?></p>
+                <p class="frete" id="exibe-frete">Frete: R$: 0,00</p>
+                <p class="total" id="exibe-total" data-subtotal="<?= $subtotal_produtos ?>">Total: R$: <?= number_format($subtotal_produtos, 2, ',', '.') ?></p>
+            </div>
+
+            <div class="botao" style="width: 100%;">
+                <button type="button" onclick="alert('Compra finalizada com sucesso! Seus itens foram enviados para o inventário.')">Finalizar compra</button>
+            </div>
+
+        <?php else: ?>
+            <div style="text-align: center; width: 100%; padding: 5vw 2vw;">
+                <h1 style="font-size: 2.2vw; color: #4a2e18; margin-bottom: 1vw;">Seu carrinho está vazio!</h1>
+                <p style="font-size: 1.2vw; margin-bottom: 2vw;">Adicione produtos incríveis para começar suas compras na fazenda.</p>
+                <a href="../index.php" class="btn" style="display: inline-block; background-color: #f3aa65; padding: 0.8vw 1.5vw; text-decoration: none; color: black; border: 1.5px solid black; border-radius: 10px; font-size: 1.2vw;">Explorar Produtos</a>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let valorFrete = 0;
+        let descontoPorcentagem = 0;
+        let temFreteGratisCupom = false;
+
+        const cepsValidos = ['88495', '88780', '88490'];
+        const totalEl = document.getElementById('exibe-total');
+        if (!totalEl) return;
+
+        const subtotalBase = parseFloat(totalEl.getAttribute('data-subtotal')) || 0;
+
+        function recalcular() {
+            let freteFinal = temFreteGratisCupom ? 0 : valorFrete;
+            let valorDesconto = subtotalBase * descontoPorcentagem;
+            let totalGeral = (subtotalBase - valorDesconto) + freteFinal;
+
+            if (totalGeral < 0) totalGeral = 0;
+
+            document.getElementById('exibe-frete').textContent = `Frete: R$: ${freteFinal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('exibe-total').textContent = `Total: R$: ${totalGeral.toFixed(2).replace('.', ',')}`;
+        }
+
+        const btnCep = document.getElementById('btn-cep');
+        if (btnCep) {
+            btnCep.addEventListener('click', () => {
+                const cepVal = document.getElementById('input-cep').value.replace(/\D/g, '');
+                const msgCep = document.getElementById('msg-cep');
+
+                const eValido = cepsValidos.some(prefixo => cepVal.startsWith(prefixo));
+
+                if (eValido) {
+                    valorFrete = 15.50;
+                    msgCep.style.color = 'green';
+                    msgCep.textContent = 'CEP atende Garopaba, Imbituba ou Paulo Lopes!';
+                } else {
+                    valorFrete = 0;
+                    msgCep.style.color = 'red';
+                    msgCep.textContent = 'CEP indisponível. Aceitamos apenas Garopaba, Imbituba e Paulo Lopes.';
+                }
+                recalcular();
+            });
+        }
+
+        const btnCupom = document.getElementById('btn-cupom');
+        if (btnCupom) {
+            btnCupom.addEventListener('click', () => {
+                const cupom = document.getElementById('input-cupom').value.trim().toUpperCase();
+                const msgCupom = document.getElementById('msg-cupom');
+
+                descontoPorcentagem = 0;
+                temFreteGratisCupom = false;
+
+                if (cupom === 'DESCONTO10') {
+                    descontoPorcentagem = 0.10;
+                    msgCupom.style.color = 'green';
+                    msgCupom.textContent = 'Cupom de 10% de desconto aplicado!';
+                } else if (cupom === 'FRETEGRATIS') {
+                    temFreteGratisCupom = true;
+                    msgCupom.style.color = 'green';
+                    msgCupom.textContent = 'Cupom de Frete Grátis aplicado!';
+                } else {
+                    msgCupom.style.color = 'red';
+                    msgCupom.textContent = 'Cupom inválido.';
+                }
+                recalcular();
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+</file>
+
+<file path="outras_paginas/conect.php">
+<?php
+$server_name = "localhost";
+$username = "root";
+$password = "";
+$db_name = "Stardew store";
+
+$conn = new mysqli($server_name, $username, $password, $db_name);
+
+if ($conn->connect_error) {
+    die("Conexão falhou: " . $conn->connect_error);
+}
+
+// Define o conjunto de caracteres para evitar problemas de acentuação
+$conn->set_charset("utf8mb4");
+?>
+</file>
+
+<file path="outras_paginas/login.php">
+<?php
+session_start();
+require_once "conect.php";
+
+$usuario_logado = isset($_SESSION['cliente_id']);
+
+$mensagem_erro = "";
+$mensagem_sucesso = "";
+
+if (isset($_SESSION['sucesso_cadastro'])) {
+    $mensagem_sucesso = $_SESSION['sucesso_cadastro'];
+    unset($_SESSION['sucesso_cadastro']);
+}
+
+if (!$usuario_logado && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+    $senha = $_POST['senha'] ?? '';
+
+    if (!$email || empty($senha)) {
+        $mensagem_erro = "Por favor, informe um e-mail válido e a senha.";
+    } else {
+        $stmt = $conn->prepare("SELECT id, nome, email, senha_hash FROM clientes WHERE email = ? LIMIT 1");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            $cliente = $result->fetch_assoc();
+
+            if (password_verify($senha, $cliente['senha_hash'])) {
+                session_regenerate_id(true);
+
+                $_SESSION['cliente_id'] = $cliente['id'];
+                $_SESSION['cliente_nome'] = $cliente['nome'];
+                $_SESSION['cliente_email'] = $cliente['email'];
+
+                $destinos_permitidos = ['carrinho.php', '../index.php'];
+                $redirecionar_para = '../index.php';
+
+                if (isset($_SESSION['redirect_after_auth']) && in_array($_SESSION['redirect_after_auth'], $destinos_permitidos)) {
+                    $redirecionar_para = $_SESSION['redirect_after_auth'];
+                    unset($_SESSION['redirect_after_auth']);
+                }
+
+                header("Location: " . $redirecionar_para);
+                exit();
+            } else {
+                $mensagem_erro = "E-mail ou senha incorretos.";
+            }
+        } else {
+            $mensagem_erro = "E-mail ou senha incorretos.";
+        }
+        $stmt->close();
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stardew Store</title>
+    <link rel="icon" href="../imagens/header/logo-title.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-superior">
+            <div class="imagem-header">
+                <a href="../index.php"><img src="../imagens/header/Logo_site.png" alt="Stardew Store Logo"></a>
+            </div>
+
+            <div class="barra-pesquisa-header">
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+                    <label for="busca">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </label>
+                </form>
+                <div id="resultados" class="autocomplete-box"></div>
+            </div>
+
+            <div class="icons-header">
+                <a href="login.php"><i class="bi bi-person-circle"></i></a>
+                <a href="carrinho.php"><i class="bi bi-cart"></i></a>
+            </div>
+        </div>
+
+        <hr id="barra-de-cima">
+
+        <div class="menu-inferior">
+            <div class="botoes">
+                <a href="../index.php">Ofertas</a>
+                <a href="sementes.html">Sementes</a>
+                <a href="#">Animais</a>
+                <a href="#">Roupas</a>
+                <a href="#">Objetos</a>
+                <a href="#">Vender meu bau</a>
+            </div>
+        </div>
+
+        <hr id="barra-de-baixo">
+    </header>
+
+    <div class="corpo">
+        <div class="login">
+            <div class="formulario">
+                <?php if ($usuario_logado): ?>
+                    <h1 id="login-titulo">Você já está cadastrado e logado no sistema!</h1>
+                    <p style="text-align: center; margin: 1.5vw 0; font-size: 1.2vw; color: #4a2e18;">
+                        Sua conta já está autenticada (<?= htmlspecialchars($_SESSION['cliente_nome']) ?>). Você não precisa fazer login novamente.
+                    </p>
+                    <div class="botao" style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        <a href="../index.php" class="btn" style="display: block; text-align: center; background-color: #f3aa65; padding: 0.8vw 1.5vw; text-decoration: none; color: black; border: 1.5px solid black; border-radius: 10px; font-size: 1.2vw;">Voltar para a Página Inicial</a>
+                        <a href="carrinho.php" class="btn" style="display: block; text-align: center; background-color: #f7cca6; padding: 0.8vw 1.5vw; text-decoration: none; color: black; border: 1.5px solid black; border-radius: 10px; font-size: 1.2vw;">Ir para o Carrinho</a>
+                        <a href="logout.php" style="color: red; font-size: 1vw; text-decoration: underline; margin-top: 5px;">Sair da Conta</a>
+                    </div>
+                <?php else: ?>
+                    <h1 id="login-titulo">Faça login na sua conta</h1>
+
+                    <?php if (!empty($mensagem_sucesso)): ?>
+                        <div style="color: green; text-align: center; margin: 10px 0; font-size: 1.1vw;">
+                            <?= htmlspecialchars($mensagem_sucesso) ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($mensagem_erro)): ?>
+                        <div id="erro-login" class="erro-mensagem" style="display: block; color: red; margin: 10px 0; text-align: center; font-size: 1.1vw;">
+                            <?= htmlspecialchars($mensagem_erro) ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="login.php" method="post">
+                        <div class="campo">
+                            <label for="email">E-mail: </label>
+                            <input type="email" id="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="senha">Senha: </label>
+                            <input type="password" id="senha" name="senha" required>
+                        </div>
+
+                        <div class="botao">
+                            <button type="submit" id="btn-entrar">Entrar</button>
+                        </div>
+                    </form>
+
+                    <a id="opcoes" href="cadastro.php">Não tem uma conta? Cadastre-se agora</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+</file>
+
+<file path="outras_paginas/logout.php">
+<?php
+session_start();
+$_SESSION = array();
+
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
+
+session_destroy();
+header("Location: login.php");
+exit();
+?>
+</file>
+
+<file path="outras_paginas/produtos.php">
+<?php
+session_start();
+require_once "conect.php";
+
+$id_produto = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$produto = null;
+
+if ($id_produto) {
+    $stmt = $conn->prepare("SELECT id, nome, preco, imagem, estrelas, COALESCE(descricao, '') AS descricao FROM produtos WHERE id = ? AND ativo = 1 LIMIT 1");
+    $stmt->bind_param("i", $id_produto);
+    $stmt->execute();
+    $res = $stmt->get_result();
+
+    if ($res->num_rows === 1) {
+        $produto = $res->fetch_assoc();
+    }
+    $stmt->close();
+}
+
+$mensagem_sucesso = "";
+if (isset($_GET['status']) && $_GET['status'] === 'adicionado') {
+    $mensagem_sucesso = "Produto adicionado ao carrinho com sucesso!";
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= $produto ? htmlspecialchars($produto['nome']) : 'Produto Não Encontrado' ?> - Stardew Store</title>
+    <link rel="icon" href="../imagens/header/logo-title.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-superior">
+            <div class="imagem-header">
+                <a href="../index.php"><img src="../imagens/header/Logo_site.png" alt="Stardew Store Logo"></a>
+            </div>
+
+            <div class="barra-pesquisa-header">
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+                    <label for="busca">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </label>
+                </form>
+                <div id="resultados" class="autocomplete-box"></div>
+            </div>
+
+            <div class="icons-header">
+                <a href="login.php" title="<?= isset($_SESSION['cliente_nome']) ? 'Minha Conta (' . htmlspecialchars($_SESSION['cliente_nome']) . ')' : 'Fazer Login' ?>">
+                    <i class="bi bi-person-circle"></i>
+                </a>
+                <a href="carrinho.php" title="Carrinho de Compras"><i class="bi bi-cart"></i></a>
+            </div>
+        </div>
+
+        <hr id="barra-de-cima">
+
+        <div class="menu-inferior">
+            <div class="botoes">
+                <a href="../index.php">Ofertas</a>
+                <a href="sementes.html">Sementes</a>
+                <a href="#">Animais</a>
+                <a href="#">Roupas</a>
+                <a href="#">Objetos</a>
+                <a href="#">Vender meu bau</a>
+            </div>
+        </div>
+
+        <hr id="barra-de-baixo">
+    </header>
+
+    <?php if ($produto): ?>
+        <?php
+        $img_src = $produto['imagem'];
+        if (strpos($img_src, '../') !== 0) {
+            $img_src = '../' . ltrim($img_src, '/');
+        }
+        $preco_formatado = "R$: " . number_format($produto['preco'], 2, ',', '.');
+        $preco_pix = "R$: " . number_format($produto['preco'] * 0.95, 2, ',', '.');
+        $preco_parcela = "R$: " . number_format($produto['preco'] / 3, 2, ',', '.');
+        $qtd_estrelas = (int)$produto['estrelas'];
+        ?>
+
+        <?php if (!empty($mensagem_sucesso)): ?>
+            <div style="background-color: #d4edda; color: #155724; border: 1.5px solid #c3e6cb; padding: 12px; text-align: center; font-size: 1.2vw; margin: 1vw 2vw; border-radius: 8px;">
+                <?= htmlspecialchars($mensagem_sucesso) ?>
+                <a href="carrinho.php" style="margin-left: 15px; color: #155724; font-weight: bold; text-decoration: underline;">Ir para o Carrinho</a>
+            </div>
+        <?php endif; ?>
+
+        <div class="produto-unico">
+            <div class="coluna-esquerda">
+                <div class="conteudo-principal">
+                    <div class="img-produto">
+                        <img src="<?= htmlspecialchars($img_src) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                    </div>
+                    <div class="textos">
+                        <p id="titulo"><?= htmlspecialchars($produto['nome']) ?></p>
+                        <br>
+                        <p id="subtitulo">Preço unitário: <?= $preco_formatado ?></p>
+                        <p id="pix"><?= $preco_pix ?> no PIX (5% de desconto)</p>
+                        <p id="parcela">3x de <?= $preco_parcela ?> sem juros</p>
+                        <p id="avaliacao">Avaliação do produto:</p>
+                        <div class="estrelass" id="primeira">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <?php if ($i <= $qtd_estrelas): ?>
+                                    <img src="../imagens/promocoes/estrela.png" alt="Estrela">
+                                <?php else: ?>
+                                    <img src="../imagens/promocoes/estrela_apagada.png" alt="Estrela Apagada">
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="descricao">
+                    <h1>Descrição do Produto</h1>
+                    <p><?= !empty($produto['descricao']) ? nl2br(htmlspecialchars($produto['descricao'])) : 'Produto de altíssima qualidade direto da Vila dos Tucanos. Garantia de procedência Stardew Store.' ?></p>
+                </div>
+            </div>
+
+            <div id="compra">
+                <h1><?= htmlspecialchars($produto['nome']) ?></h1>
+                <p>Vendido por: <a id="vendedor" href="#">Pierre's General Store</a></p>
+                <p id="entrega">Entrega garantida pela Stardew Express</p>
+                <p id="frete">Frete Grátis em compras acima de R$ 100</p>
+                <p id="pagamento">Pagamento seguro via PIX, Cartão ou Boleto</p>
+
+                <form class="formulario" action="carrinho.php" method="post">
+                    <input type="hidden" name="acao" value="adicionar">
+                    <input type="hidden" name="produto_id" value="<?= (int)$produto['id'] ?>">
+
+                    <div style="margin: 1.5vw 0; text-align: center;">
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="number" id="qinput" name="quantidade" value="1" min="1" max="99" style="width: 70px; text-align: center;" required>
+                    </div>
+
+                    <div class="botao" style="display: flex; flex-direction: column; gap: 10px;">
+                        <button type="submit" id="add-car">Adicionar ao Carrinho</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php else: ?>
+        <div style="text-align: center; padding: 5vw 2vw;">
+            <h1 style="font-size: 2.5vw; color: #b85c37;">Produto não encontrado!</h1>
+            <p style="font-size: 1.2vw; margin: 1.5vw 0;">O produto que você procurou não existe ou foi removido do nosso catálogo.</p>
+            <a href="../index.php" class="btn" style="display: inline-block; background-color: #f3aa65; padding: 0.8vw 1.5vw; text-decoration: none; color: black; border: 1.5px solid black; border-radius: 10px; font-size: 1.2vw;">Voltar para as Ofertas</a>
+        </div>
+    <?php endif; ?>
+
+    <hr>
+
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+</file>
+
+<file path="index.php">
+<?php
+session_start();
+require_once "outras_paginas/conect.php";
+
+// Consulta os produtos ativos cadastrados no banco de dados
+$sql = "SELECT id, nome, preco, imagem, estrelas FROM produtos WHERE ativo = 1 ORDER BY id ASC";
+$result = $conn->query($sql);
+
+$produtos_busca = [];
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Stardew Store</title>
+    <link rel="icon" href="imagens/header/logo-title.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-superior">
+            <div class="imagem-header">
+                <a href="index.php"><img src="imagens/header/Logo_site.png" alt="Stardew Store Logo"></a>
+            </div>
+
+            <div class="barra-pesquisa-header">
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+                    <label for="busca">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </label>
+                </form>
+                <div id="resultados" class="autocomplete-box"></div>
+            </div>
+
+            <div class="icons-header">
+                <a href="outras_paginas/login.php" title="<?= isset($_SESSION['cliente_nome']) ? 'Minha Conta (' . htmlspecialchars($_SESSION['cliente_nome']) . ')' : 'Fazer Login' ?>">
+                    <i class="bi bi-person-circle"></i>
+                </a>
+                <a href="outras_paginas/carrinho.php" title="Carrinho de Compras"><i class="bi bi-cart"></i></a>
+            </div>
+        </div>
+        <hr id="barra-de-cima">
+
+        <div class="menu-inferior">
+            <div class="botoes">
+                <a href="index.php">Ofertas</a>
+                <a href="outras_paginas/sementes.html">Sementes</a>
+                <a href="#">Animais</a>
+                <a href="#">Roupas</a>
+                <a href="#">Objetos</a>
+                <a href="#">Vender meu bau</a>
+            </div>
+        </div>
+
+        <hr id="barra-de-baixo">
+    </header>
+
+    <div class="promos">
+        <div class="promo-pai"><img src="imagens/promocoes/promo.png" alt="Promoção Principal"></div>
+    
+        <div class="promo-filho">
+            <div class="card-promo">
+                <a href="#"><img src="imagens/promocoes/galinha_azul.webp" alt="Galinha Azul"></a>
+                <img class="selo-estrela" src="imagens/promocoes/estrela.png" alt="Estrela">
+            </div>
+
+            <div class="card-promo">
+                <a href="#"><img src="imagens/promocoes/chirivia.png" alt="Chirivia"></a>
+                <img class="selo-estrela" src="imagens/promocoes/estrela.png" alt="Estrela">
+            </div>
+
+            <div class="card-promo">
+                <a href="#"><img src="imagens/promocoes/colar.png" alt="Colar"></a>
+            </div>
+
+            <div class="card-promo">
+                <a href="#"><img src="imagens/promocoes/galinha.png" alt="Galinha"></a>
+                <img class="selo-banner" src="imagens/promocoes/promo-buner.png" alt="Promoção">
+            </div>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="outros-produtos">
+        <h1>Produtos para você</h1>
+
+        <div class="produtos">
+            <?php if ($result && $result->num_rows > 0): ?>
+                <?php while ($produto = $result->fetch_assoc()): ?>
+                    <?php
+                    $link_dinamico = "outras_paginas/produtos.php?id=" . (int)$produto['id'];
+                    $preco_formatado = "R$ " . number_format($produto['preco'], 2, ',', '.');
+                    $qtd_estrelas = (int)$produto['estrelas'];
+
+                    $img_src = (strpos($produto['imagem'], '../') === 0) ? substr($produto['imagem'], 3) : $produto['imagem'];
+
+                    $produtos_busca[] = [
+                        'nome' => $produto['nome'],
+                        'url'  => $link_dinamico,
+                        'img'  => $img_src
+                    ];
+                    ?>
+                    <div class="um-produto">
+                        <a href="<?= htmlspecialchars($link_dinamico) ?>">
+                            <img src="<?= htmlspecialchars($img_src) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                        </a>
+                        <a class="nome-link" href="<?= htmlspecialchars($link_dinamico) ?>">
+                            <?= htmlspecialchars($produto['nome']) ?> - <?= $preco_formatado ?>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                                <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 12"/>
+                            </svg>
+                        </a>
+                        <div class="estrelass">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <?php if ($i <= $qtd_estrelas): ?>
+                                    <img src="imagens/promocoes/estrela.png" alt="Estrela">
+                                <?php else: ?>
+                                    <img src="imagens/promocoes/estrela_apagada.png" alt="Estrela Apagada">
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p style="text-align: center; width: 100%; font-size: 1.5vw; padding: 20px;">
+                    Nenhum produto cadastrado no momento.
+                </p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <hr>
+    
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const produtos = <?= json_encode($produtos_busca, JSON_UNESCAPED_UNICODE) ?>;
+
+        const inputBusca = document.getElementById('busca');
+        const containerResultados = document.getElementById('resultados');
+
+        inputBusca.addEventListener('input', (e) => {
+          const termo = e.target.value.toLowerCase().trim();
+          containerResultados.innerHTML = '';
+
+          if (!termo) return;
+
+          const filtrados = produtos.filter(produto => 
+            produto.nome.toLowerCase().includes(termo)
+          );
+
+          filtrados.forEach(produto => {
+            const link = document.createElement('a');
+            link.href = produto.url;
+            link.className = 'item-produto';
+            link.innerHTML = `
+              <img src="${produto.img}" alt="${produto.nome}">
+              <span>${produto.nome}</span>
+            `;
+            containerResultados.appendChild(link);
+          });
+        });
+    </script>
+</body>
+</html>
+</file>
+
+<file path="package.json">
+{
+  "dependencies": {
+    "12": "^1.0.2"
+  }
+}
+</file>
+
+<file path="outras_paginas/sementes.html">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sementes - Stardew Store</title>
+    <link rel="icon" href="../imagens/header/logo-title.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-superior">
+            <div class="imagem-header">
+                <a href="../index.php"><img src="../imagens/header/Logo_site.png" alt="Stardew Store Logo"></a>
+            </div>
+
+            <div class="barra-pesquisa-header">
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" id="busca" placeholder="buscar produto" autocomplete="off">
+                    <label for="busca">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </label>
+                </form>
+                <div id="resultados" class="autocomplete-box"></div>
+            </div>
+
+            <div class="icons-header">
+                <a href="login.php"><i class="bi bi-person-circle"></i></a>
+                <a href="carrinho.php"><i class="bi bi-cart"></i></a>
+            </div>
+        </div>
+
+        <hr id="barra-de-cima">
+
+        <div class="menu-inferior">
+            <div class="botoes">
+                <a href="../index.php">Ofertas</a>
+                <a href="sementes.html">Sementes</a>
+                <a href="#">Animais</a>
+                <a href="#">Roupas</a>
+                <a href="#">Objetos</a>
+                <a href="#">Vender meu bau</a>
+            </div>
+        </div>
+
+        <hr id="barra-de-baixo">
+    </header>
+
+    <div id="produtos-sementes" class="outros-produtos">
+        <div class="produtos">
+            <div class="um-produto">
+                <a href="produtos.php?id=9"><img src="../imagens/produtos/rabanete.png" alt="Sementes Rabanete"></a>
+                <a class="nome-link" href="produtos.php?id=9">
+                    Sementes Rabanete - <br> De R$:20,00 Por R$:16,00 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                        <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 12"/>
+                    </svg>
+                </a>
+                <div class="estrelass">
+                    <img src="../imagens/promocoes/estrela.png" alt="">
+                    <img src="../imagens/promocoes/estrela.png" alt="">
+                    <img src="../imagens/promocoes/estrela.png" alt="">
+                    <img src="../imagens/promocoes/meiaestrela.png" alt="">
+                    <img src="../imagens/promocoes/estrela_apagada.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <footer>
+        <div class="menu-inferior">
+            <div class="botoes-rodape">
+                <a id="Contato" href="#">Contato</a>
+                <a id="Sobre" href="#">Sobre nós</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+</file>
+
+<file path="style.css">
+/* CONFIGURAÇÕES GERAIS*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+    background-color: #ffecc9;
+    color: black;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Header */
+
+header .menu-superior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 4vw;
+}
+
+header .imagem-header img {
+    width: 13vw;
+    margin: 0.5vw;
+}
+
+/* Container da Busca */
+header .barra-pesquisa-header {
+    position: relative;
+    margin: 0.5vw;
+}
+
+header .barra-pesquisa-header form {
+    margin: 0;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 0.6vw; 
+}
+
+header .barra-pesquisa-header input {
+    background-color: #ffecc9;
+    height: 2.2vw;
+    width: 22vw; 
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 0 1vw;
+    outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+header .barra-pesquisa-header label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+header .barra-pesquisa-header svg {
+    width: 1.5vw;
+    height: 1.5vw;
+    fill: #333;
+}
+
+header .search-container {
+    position: relative;
+    width: 22vw;
+    margin: 0.5vw;
+}
+
+header .search-container input {
+    width: 100%;
+    height: 2.2vw;
+    padding: 0 1vw;
+    background-color: #ffecc9;
+    border: 1px solid #555;
+    border-radius: 20px;
+    outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+/* Container da Busca */
+header .barra-pesquisa-header {
+    position: relative;
+    margin: 0.5vw;
+}
+
+header .barra-pesquisa-header form {
+    margin: 0;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 0.6vw; 
+}
+
+header .barra-pesquisa-header input {
+    background-color: #ffecc9;
+    height: 2.2vw;
+    width: 22vw; 
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 0 1vw;
+    outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+header .barra-pesquisa-header label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+header .barra-pesquisa-header svg {
+    width: 1.5vw;
+    height: 1.5vw;
+    fill: #333;
+}
+
+header .search-container {
+    position: relative;
+    width: 22vw;
+    margin: 0.5vw;
+}
+
+header .search-container input {
+    width: 100%;
+    height: 2.2vw;
+    padding: 0 1vw;
+    background-color: #ffecc9;
+    border: 1px solid #555;
+    border-radius: 20px;
+    outline: none;
+    font-size: 1vw;
+    box-sizing: border-box;
+}
+
+/* Ajustes da BOSTA da barra de pesquisa que odio*/
+
+header .barra-pesquisa-header .autocomplete-box {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 22vw;
+    margin-top: 0.3vw;
+    background-color: #fff8e7;
+    border: 2px solid #b85c37;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    max-height: 15vw; 
+    overflow-y: auto;
+    z-index: 1000; 
+}
+
+header .barra-pesquisa-header .autocomplete-box:empty {
+    display: none;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto {
+    display: flex;
+    align-items: center;
+    padding: 0.5vw 0.8vw;
+    text-decoration: none;
+    color: #4a2e18;
+    font-size: 0.9vw;
+    border-bottom: 1px solid #f0d8bd;
+    transition: background-color 0.2s;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto:last-child {
+    border-bottom: none;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto:hover {
+    background-color: #f7e3cc;
+}
+
+header .barra-pesquisa-header .autocomplete-box .item-produto img {
+    width: 1.8vw;
+    height: 1.8vw;
+    object-fit: contain;
+    margin-right: 0.6vw;
+    image-rendering: pixelated; /* Mantém a nitidez do Stardew Valley */
+}
+
+/* Ícones */
+header .icons-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2vw;
+    cursor: pointer;
+    margin: 0.5vw;
+    padding: 0.5vw;
+    flex-shrink: 0; 
+}
+
+header .icons-header a {
+    color: black;
+    font-size: 1.8vw;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+header .icons-header a:hover {
+    color: rgb(71, 0, 0);
+}
+
+/* Menu*/
+
+hr {
+    background-color: brown;
+    width: 100%;
+    height: 2px;
+    border: none;
+    margin-top: 3px;
+}
+
+header #barra-de-cima {
+    margin-bottom: 1vw;
+}
+
+header #barra-de-baixo {
+    margin-top: 1vw;
+}
+
+header .menu-inferior .botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header .menu-inferior .botoes a {
+    font-size: 1.7vw;
+    text-decoration: none;
+    color: black;
+    margin: 0 2vw;
+}
+
+header .menu-inferior .botoes a:hover {
+    font-size: 1.8vw;
+    color: rgb(71, 0, 0);
+}
+
+/* Centralização do Rodapé */
+.menu-inferior .botoes-rodape {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    padding: 1vw 0;
+}
+
+.menu-inferior .botoes-rodape #Contato,
+.menu-inferior .botoes-rodape #Sobre {
+    font-size: 1.7vw;
+    text-decoration: none;
+    color: black;
+    margin: 0;
+}
+
+.menu-inferior .botoes-rodape a:hover {
+    font-size: 1.8vw;
+    color: rgb(71, 0, 0);
+}
+
+/* PROMOÇÕES*/
+
+body .promos {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+body .promos .promo-pai img {
+    display: block;
+    margin-top: 2vw;
+    margin-left: 7vw;
+    height: 30vw;
+    width: auto;
+}
+
+body .promos .promo-filho {
+    display: grid;
+    grid-template-columns: repeat(2, 14vw); 
+    gap: 2vw 3vw; 
+    margin-left: 10vw; 
+    margin-top: 2vw;
+}
+
+.promo-filho .card-promo {
+    position: relative;
+    width: 14vw;
+    height: 14vw;
+}
+
+.promo-filho .card-promo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    display: block;
+}
+
+.promo-filho .card-promo:nth-child(3),
+.promo-filho .card-promo:nth-child(4) {
+    transform: translateX(5vw);
+}
+
+/* Posicionamento dos Selos e Estrelas no canto inferior direito */
+.promo-filho .selo-estrela {
+    position: absolute;
+    bottom: -0.5vw;
+    right: -0.5vw;
+    width: 3.5vw !important;
+    height: auto !important;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.promo-filho .selo-banner {
+    position: absolute;
+    bottom: -0.8vw;
+    right: -1vw;
+    width: 7vw !important;
+    height: 4vw !important;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/*PRODUTOS*/
+
+body .produtos {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1vw;
+    gap: 1vw;
+}
+
+body .produtos .um-produto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-left: 2vw;
+}
+
+body .outros-produtos h1 {
+    font-size: 3vw;
+    margin-top: 1vw;
+    margin-left: 1vw;
+}
+
+body .outros-produtos .produtos img {
+    height: 13vw;
+    width: auto;
+    margin: 1.5vw;
+    object-fit: contain;
+}
+
+.nome-link {
+    color: black;
+    text-decoration: none;
+}
+
+.nome-link:hover {
+    color: rgb(71, 0, 0);
+}
+
+body .outros-produtos .produtos .estrelass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2vw;
+}
+
+body .outros-produtos .produtos .estrelass img {
+    height: 1vw;
+    width: auto;
+    margin: 0 !important;
+}
+
+#produtos-sementes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* ================================
+   PÁGINA DE PRODUTO ÚNICO
+================================ */
+
+.produto-unico {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 2vw;
+    gap: 2vw;
+}
+
+.coluna-esquerda {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    min-width: 0;
+}
+
+.coluna-esquerda .textos p {
+    margin-left: 1vw;
+}
+
+#titulo {
+    font-size: 2.3vw;
+}
+
+#pix {
+    color: red;
+    margin-left: 4vw;
+    font-size: 2vw;
+}
+
+#parcela {
+    color: rgb(119, 118, 118);
+    margin-left: 7vw;
+    font-size: 2vw;
+}
+
+#avaliacao {
+    color: rgb(119, 118, 118);
+    margin-left: 2vw;
+}
+
+.coluna-esquerda .estrelass img {
+    height: 2vw;
+    width: auto;
+}
+
+#primeira {
+    margin-left: 2vw;
+}
+
+.conteudo-principal {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2vw;
+}
+
+.produto-unico .img-produto img {
+    height: 20vw;
+    width: auto;
+    margin-left: 6vw;
+    margin-right: 1vw;
+    object-fit: contain;
+}
+
+.descricao {
+    margin-top: 2vw;
+    padding: 1vw;
+    color: rgb(65, 64, 64);
+}
+
+.descricao h1 {
+    font-size: 2.3vw;
+}
+
+.descricao p,
+.descricao li {
+    font-size: 2vw;
+}
+
+.descricao li {
+    margin-left: 2vw;
+}
+
+/* ================================
+   CAIXA DE COMPRA
+================================ */
+
+#compra {
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 25px;
+    padding-bottom: 50px;
+    background-color: #f3aa65 !important;
+    flex: 1;
+    min-width: 250px;
+}
+
+#compra h1 {
+    font-size: 2vw;
+    text-align: center;
+}
+
+#vendedor {
+    text-decoration: underline;
+}
+
+#compra p {
+    margin-left: 2.2vw;
+    font-size: 1vw;
+}
+
+#entrega {
+    margin-left: 2.2vw;
+    font-size: 2vw;
+}
+
+#frete {
+    font-size: 1.2vw;
+    color: rgb(44, 156, 0);
+}
+
+#pagamento {
+    font-size: 1.2vw;
+    color: rgb(65, 64, 64);
+}
+
+#compra label {
+    font-size: 2vw;
+    margin-left: 1vw;
+}
+
+.formulario input {
+    height: 2vw;
+    margin-top: 1.4vw;
+    font-size: 1vw;
+    padding: 0.3vw;
+}
+
+.formulario .botao {
+    display: flex;
+    justify-content: center;
+}
+
+.formulario button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1.5px solid black;
+    font-size: 1.6vw;
+    margin-top: 1vw;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0.5vw 1vw;
+}
+
+#quantidade {
+    font-size: 5vw;
+}
+
+#qinput {
+    background-color: #f3aa65;
+}
+
+#comprar-a {
+    background-color: rgb(224, 11, 11);
+    margin-bottom: 2vh;
+}
+
+#add-car {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.6vw;
+    margin-top: 1vw;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    background-color: #f7cca6;
+    text-decoration: none;
+    color: black;
+    padding: 0.5vw 1vw;
+}
+
+#add-car:hover,
+.formulario button:hover {
+    font-size: 1.7vw;
+}
+
+/* ================================
+   AVALIAÇÕES
+================================ */
+
+.estrelas-avaliacao {
+    display: flex;
+    align-items: center;
+    gap: 0.2vw;
+}
+
+.estrelas-avaliacao img {
+    height: 1.2vw;
+    width: auto;
+    margin: 0;
+}
+
+.texto-avaliacao {
+    color: rgb(65, 64, 64);
+    font-size: 2vw;
+    display: block;
+    margin: 1vw 0;
+}
+
+.avaliacao {
+    font-size: 2vw;
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+/* ================================
+   CADASTRO / LOGIN
+================================ */
+
+.corpo {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    padding-bottom: 25vh;
+}
+
+.login {
+    width: 25vw;
+    margin-top: 2vw;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1vw;
+}
+
+.formulario {
+    border: none;
+}
+
+#login-titulo {
+    text-align: center;
+}
+
+.campo {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 0.8vw;
+    margin-bottom: 1vw;
+}
+
+.campo label {
+    text-align: right;
+}
+
+.campo input {
+    width: 100%;
+    padding: 0.4vw;
+}
+
+.login .botao {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vw;
+}
+
+.login .botao button {
+    width: 60%;
+    cursor: pointer;
+    background-color: #f3aa65;
+}
+
+.login .formulario button:hover {
+    font-size: 2.5vw;
+}
+
+/* ================================
+   RODAPÉ / OPÇÕES
+================================ */
+
+#opcoes {
+    display: block;
+    text-align: center;
+    margin-top: 1.5vw;
+    font-size: 1vw;
+    text-decoration: none;
+    color: black;
+}
+
+#opcoes:hover {
+    color: rgb(71, 0, 0);
+    font-size: 1.1vw;
+}
+
+/* ================================
+   CARRINHO
+================================ */
+
+.chasi {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.chasi .compra {
+    width: calc(90% - 2vw);
+    border: 3px solid black;
+    border-radius: 10px;
+    margin-top: 2vw;
+    margin-left: 2vw;
+    justify-content: space-between;
+    display: flex;
+}
+
+.chasi .compra img {
+    height: 10vw;
+    width: auto;
+}
+
+.chasi .esquerda {
+    margin: 1vw;
+    display: flex;
+}
+
+.chasi .dados {
+    margin-top: 1vw;
+    margin-left: 1vw;
+}
+
+.chasi .finalizar p {
+    font-size: 2vw;
+    margin-right: 2vw;
+    padding: 1vw;
+}
+
+.chasi label {
+    font-size: 1.7vw;
+}
+
+.chasi form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2vw;
+}
+
+.chasi .botao {
+    display: flex;
+    justify-content: center;
+    margin: 2vw;
+}
+
+.chasi .botao button {
+    font-size: 2vw;
+    background-color: #d8a26e;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.chasi .cep {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 3vw;
+    margin-top: 2vw;
+    gap: 0.5vw;
+}
+
+.chasi .cep input {
+    width: 8vw;
+    padding: 0.2vw;
+    font-size: 1vw;
+}
+
+.chasi .frete {
+    font-size: 1.5vw;
+    color: rgb(65, 64, 64);
+    margin-left: auto;
+    margin-right: 3vw;
+}
+
+.chasi .total {
+    font-size: 2vw;
+    font-weight: bold;
+    color: black;
+    margin-left: auto;
+    margin-right: 3vw;
+}
+
+/* ================================
+   MENU SUSPENSO DA PESQUISA
+================================ */
+
+.search-container {
+    position: relative;
+}
+
+.autocomplete-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.item-produto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+}
+
+.item-produto:hover {
+    background-color: #f0f0f0;
+}
+
+.item-produto img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* CSS MOBILE desgraçado chorei fazendo isso */
+
+@media (max-width: 768px) {
+
+    body {
+        font-size: 16px;
+        overflow-x: hidden;
+    }
+
+    /* Header */
+
+    header .menu-superior {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 10px 15px !important;
+        gap: 10px !important;
+    }
+
+    header .imagem-header {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    header .imagem-header img {
+        width: 110px !important;
+        margin: 0 auto !important;
+    }
+
+    header .barra-pesquisa-header,
+    header .search-container {
+        flex: 1 !important;
+        width: auto !important;
+        margin: 0 !important;
+        position: relative !important;
+    }
+
+    header .barra-pesquisa-header form {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    header .barra-pesquisa-header input,
+    header .search-container input {
+        width: 100% !important;
+        height: 38px !important;
+        font-size: 14px !important;
+        padding: 0 12px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    header .barra-pesquisa-header label {
+        display: flex !important;
+        align-items: center !important;
+        cursor: pointer;
+    }
+
+    header .barra-pesquisa-header svg {
+        width: 20px !important;
+        height: 20px !important;
+        flex-shrink: 0 !important;
+    }
+
+    header .icons-header {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 0 !important;
+        margin-left: 5px !important;
+    }
+
+    header .icons-header a,
+    header .icons-header svg,
+    header .icons-header img {
+        font-size: 20px !important;
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    header .barra-pesquisa-header .autocomplete-box {
+        width: 100% !important;
+        top: 100% !important;
+        left: 0 !important;
+        max-height: 200px !important;
+        z-index: 1000 !important;
+        background-color: #fff8e7 !important;
+        border: 2px solid #b85c37 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+    }
+
+    header .barra-pesquisa-header .autocomplete-box .item-produto {
+        padding: 10px !important;
+        font-size: 14px !important;
+    }
+
+    header .barra-pesquisa-header .autocomplete-box .item-produto img {
+        width: 28px !important;
+        height: 28px !important;
+        margin-right: 10px !important;
+    }
+
+    /* Menu inferior */
+
+    header .menu-inferior {
+        width: 100% !important;
+        padding: 8px 0 !important;
+    }
+
+    .menu-inferior,
+    .menu-inferior nav,
+    .menu-inferior ul,
+    .menu-inferior .botoes-rodape {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px 18px !important; 
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 5px 10px !important;
+        list-style: none !important;
+    }
+
+    /* Formatação individual  */
+
+    .menu-inferior a,
+    .menu-inferior li,
+    .menu-inferior p,
+    .menu-inferior span,
+    .menu-inferior .botoes-rodape #Contato,
+    .menu-inferior .botoes-rodape #Sobre {
+        display: inline-block !important;
+        font-size: 15px !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+        color: #000 !important;
+        margin: 0 !important;
+        padding: 2px 4px !important;
+        white-space: nowrap !important; 
+    }
+
+   /* Promo */
+    body .promos {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px !important; 
+    }
+
+    body .promos .promo-pai img {
+        width: 90%;
+        height: auto;
+        margin: 20px auto 0;
+    }
+
+    body .promos .promo-filho {
+        grid-template-columns: repeat(2, 120px);
+        gap: 15px;
+        margin-left: 0;
+        margin-top: 20px;
+        margin-bottom: 2px !important; 
+        justify-content: center;
+    }
+
+    .promo-filho .card-promo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .promo-filho .card-promo:nth-child(3),
+    .promo-filho .card-promo:nth-child(4) {
+        transform: none;
+    }
+
+    .promo-filho .selo-estrela {
+        width: 35px !important;
+        bottom: -5px;
+        right: -5px;
+    }
+
+    .promo-filho .selo-banner {
+        width: 95px !important; 
+        height: auto !important;
+        bottom: -10px !important;
+        right: -15px !important;
+        z-index: 10 !important;
+    }
+
+    /* Produtos */
+    body .outros-produtos h1,
+    body .produtos-container h1,
+    body h1 {
+        font-size: 24px !important;
+        text-align: center !important;
+    }
+
+    body .produtos,
+    body .lista-produtos,
+    body .grid-produtos {
+        display: flex !important;
+        flex-direction: column !important; 
+        align-items: center !important;     
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+        margin: 0 auto !important;
+    }
+
+    body .produtos .um-produto,
+    body .um-produto,
+    body .card-produto {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;     
+        text-align: center !important;
+        margin: 15px auto !important;
+        width: 100% !important;
+    }
+
+    body .outros-produtos .produtos img,
+    body .produtos img,
+    body .um-produto img {
+        width: 130px !important;
+        height: 130px !important;
+        margin: 0 auto 10px auto !important;
+        display: block !important;
+    }
+
+    body .outros-produtos .produtos .estrelass img,
+    body .produtos .estrelas img,
+    body .um-produto .estrelass img {
+        width: auto !important;
+        height: 12px !important;
+        margin: 5px auto !important;
+        display: inline-block !important;
+    }
+
+    /* Produto único */
+
+    .produto-unico {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .coluna-esquerda {
+        width: 100%;
+    }
+
+    .produto-unico .img-produto img {
+        height: 250px;
+        width: auto;
+        margin: 0 auto 20px;
+        display: block;
+    }
+
+    #titulo {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    #pix,
+    #parcela,
+    #avaliacao {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .descricao {
+        width: 100%;
+    }
+
+    .descricao h1 {
+        font-size: 20px;
+    }
+
+    .descricao p,
+    .descricao li {
+        font-size: 16px;
+    }
+
+    #compra {
+        width: 100%;
+        min-width: 0;
+        margin-right: 0;
+        padding: 20px;
+    }
+
+    #compra h1 {
+        font-size: 20px;
+    }
+
+    #compra p,
+    #entrega,
+    #frete,
+    #pagamento,
+    #compra label {
+        font-size: 16px;
+        margin-left: 0;
+    }
+
+    .formulario input {
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .formulario button,
+    #add-car {
+        font-size: 16px;
+        padding: 12px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Avaliações */
+    .texto-avaliacao,
+    .avaliacao {
+        font-size: 16px;
+    }
+
+    .estrelas-avaliacao img {
+        height: 14px;
+    }
+
+    /* Login */
+    .login {
+        width: 90vw;
+        padding: 20px;
+    }
+
+    .campo {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .campo label {
+        text-align: left;
+    }
+
+    .campo input {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .login .botao button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    #opcoes {
+        font-size: 14px;
+    }
+
+    /* Carrinho Mobile */
+    .chasi {
+        flex-direction: column;
+        align-items: center;
+        width: 100% !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    .chasi .compra {
+        width: 100% !important;
+        margin-left: 0 !important;
+        flex-direction: column !important;
+    }
+
+    .chasi .esquerda {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .chasi .compra img {
+        height: 150px !important;
+    }
+
+    .chasi .dados {
+        margin: 10px !important;
+        text-align: center !important;
+    }
+
+    .chasi label {
+        font-size: 16px !important;
+    }
+
+    .chasi form {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .chasi .botao {
+        position: static !important;
+        margin: 15px !important;
+    }
+
+    .chasi .botao button {
+        font-size: 18px !important;
+        padding: 10px 20px !important;
+        width: 100% !important;
+    }
+
+    .chasi .cep,
+    .chasi .cupom,
+    .chasi form:has(input) {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin: 10px 0 !important;
+        padding: 0 !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+    }
+
+    .chasi .cep label,
+    .chasi .cupom label,
+    .chasi form label,
+    .chasi .cep span,
+    .chasi .cupom span {
+        min-width: 65px !important;
+        text-align: right !important;
+        font-size: 16px !important;
+        margin: 0 !important;
+    }
+
+
+    .chasi .cep input,
+    .chasi .cupom input,
+    .chasi form input[type="text"] {
+        width: 130px !important;
+        height: 36px !important;
+        font-size: 14px !important;
+        padding: 0 8px !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    .chasi .cep button,
+    .chasi .cupom button,
+    .chasi .cep input[type="submit"],
+    .chasi .cupom input[type="submit"],
+    .chasi form button {
+        height: 30px !important;
+        padding: 0 10px !important;
+        font-size: 11px !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        cursor: pointer;
+    }
+
+    .chasi .frete,
+    .chasi .frete p,
+    .chasi .frete label,
+    .chasi .frete span {
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        margin: 12px 0 5px 0 !important;
+    }
+
+    .chasi .total,
+    .chasi .total p,
+    .chasi .total span,
+    .chasi .total h2 {
+        font-size: 22px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin: 10px 0 !important;
+    }
+}
+</file>
+
+</files>

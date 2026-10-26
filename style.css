@@ -1,4 +1,4 @@
-/* CONFIGURAÇÕES GERAIS*/
+/* CONFIGURAÇÕES GERAIS */
 
 * {
     margin: 0;
@@ -13,6 +13,7 @@
 body {
     background-color: #ffecc9;
     color: black;
+    overflow-x: hidden;
 }
 
 img {
@@ -27,6 +28,7 @@ header .menu-superior {
     align-items: center;
     width: 100%;
     min-height: 4vw;
+    padding: 0 1vw;
 }
 
 header .imagem-header img {
@@ -72,82 +74,6 @@ header .barra-pesquisa-header svg {
     fill: #333;
 }
 
-header .search-container {
-    position: relative;
-    width: 22vw;
-    margin: 0.5vw;
-}
-
-header .search-container input {
-    width: 100%;
-    height: 2.2vw;
-    padding: 0 1vw;
-    background-color: #ffecc9;
-    border: 1px solid #555;
-    border-radius: 20px;
-    outline: none;
-    font-size: 1vw;
-    box-sizing: border-box;
-}
-
-/* Container da Busca */
-header .barra-pesquisa-header {
-    position: relative;
-    margin: 0.5vw;
-}
-
-header .barra-pesquisa-header form {
-    margin: 0;
-    display: flex;
-    flex-direction: row; 
-    align-items: center;
-    gap: 0.6vw; 
-}
-
-header .barra-pesquisa-header input {
-    background-color: #ffecc9;
-    height: 2.2vw;
-    width: 22vw; 
-    border: 1px solid #555;
-    border-radius: 20px;
-    padding: 0 1vw;
-    outline: none;
-    font-size: 1vw;
-    box-sizing: border-box;
-}
-
-header .barra-pesquisa-header label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-header .barra-pesquisa-header svg {
-    width: 1.5vw;
-    height: 1.5vw;
-    fill: #333;
-}
-
-header .search-container {
-    position: relative;
-    width: 22vw;
-    margin: 0.5vw;
-}
-
-header .search-container input {
-    width: 100%;
-    height: 2.2vw;
-    padding: 0 1vw;
-    background-color: #ffecc9;
-    border: 1px solid #555;
-    border-radius: 20px;
-    outline: none;
-    font-size: 1vw;
-    box-sizing: border-box;
-}
-
-/* Ajustes da BOSTA da barra de pesquisa que odio*/
-
 header .barra-pesquisa-header .autocomplete-box {
     position: absolute;
     top: 100%; 
@@ -191,7 +117,7 @@ header .barra-pesquisa-header .autocomplete-box .item-produto img {
     height: 1.8vw;
     object-fit: contain;
     margin-right: 0.6vw;
-    image-rendering: pixelated; /* Mantém a nitidez do Stardew Valley */
+    image-rendering: pixelated;
 }
 
 /* Ícones */
@@ -217,7 +143,7 @@ header .icons-header a:hover {
     color: rgb(71, 0, 0);
 }
 
-/* Menu*/
+/* Menu Inferior */
 
 hr {
     background-color: brown;
@@ -240,21 +166,22 @@ header .menu-inferior .botoes {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    gap: 1vw;
 }
 
 header .menu-inferior .botoes a {
     font-size: 1.7vw;
     text-decoration: none;
     color: black;
-    margin: 0 2vw;
+    margin: 0 1vw;
+    transition: transform 0.2s;
 }
 
 header .menu-inferior .botoes a:hover {
-    font-size: 1.8vw;
     color: rgb(71, 0, 0);
+    transform: scale(1.05);
 }
 
-/* Centralização do Rodapé */
 .menu-inferior .botoes-rodape {
     display: flex;
     justify-content: center;
@@ -269,26 +196,24 @@ header .menu-inferior .botoes a:hover {
     font-size: 1.7vw;
     text-decoration: none;
     color: black;
-    margin: 0;
 }
 
 .menu-inferior .botoes-rodape a:hover {
-    font-size: 1.8vw;
     color: rgb(71, 0, 0);
 }
 
-/* PROMOÇÕES*/
+/* PROMOÇÕES */
 
 body .promos {
     display: flex;
     align-items: flex-start;
     width: 100%;
+    justify-content: center;
 }
 
 body .promos .promo-pai img {
     display: block;
     margin-top: 2vw;
-    margin-left: 7vw;
     height: 30vw;
     width: auto;
 }
@@ -297,7 +222,7 @@ body .promos .promo-filho {
     display: grid;
     grid-template-columns: repeat(2, 14vw); 
     gap: 2vw 3vw; 
-    margin-left: 10vw; 
+    margin-left: 5vw; 
     margin-top: 2vw;
 }
 
@@ -317,10 +242,9 @@ body .promos .promo-filho {
 
 .promo-filho .card-promo:nth-child(3),
 .promo-filho .card-promo:nth-child(4) {
-    transform: translateX(5vw);
+    transform: translateX(3vw);
 }
 
-/* Posicionamento dos Selos e Estrelas no canto inferior direito */
 .promo-filho .selo-estrela {
     position: absolute;
     bottom: -0.5vw;
@@ -341,13 +265,20 @@ body .promos .promo-filho {
     pointer-events: none;
 }
 
-/*PRODUTOS*/
+/* PRODUTOS E VITRINE */
+
+body .outros-produtos h1 {
+    font-size: 2.5vw;
+    margin-top: 1vw;
+    margin-left: 2vw;
+}
 
 body .produtos {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 1vw;
-    gap: 1vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    padding: 2vw;
+    gap: 2vw;
+    justify-items: center;
 }
 
 body .produtos .um-produto {
@@ -355,29 +286,38 @@ body .produtos .um-produto {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-left: 2vw;
+    background-color: #fff8e7;
+    border: 2px solid #b85c37;
+    border-radius: 12px;
+    padding: 1vw;
+    width: 100%;
+    max-width: 240px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-body .outros-produtos h1 {
-    font-size: 3vw;
-    margin-top: 1vw;
-    margin-left: 1vw;
+body .produtos .um-produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 body .outros-produtos .produtos img {
-    height: 13vw;
-    width: auto;
-    margin: 1.5vw;
+    height: 130px;
+    width: 130px;
+    margin: 0.5vw;
     object-fit: contain;
+    image-rendering: pixelated;
 }
 
 .nome-link {
-    color: black;
+    color: #4a2e18;
     text-decoration: none;
+    font-size: 1.2vw;
+    margin: 0.5vw 0;
 }
 
 .nome-link:hover {
-    color: rgb(71, 0, 0);
+    color: #b85c37;
 }
 
 body .outros-produtos .produtos .estrelass {
@@ -388,19 +328,154 @@ body .outros-produtos .produtos .estrelass {
 }
 
 body .outros-produtos .produtos .estrelass img {
-    height: 1vw;
+    height: 1.2vw;
     width: auto;
     margin: 0 !important;
 }
 
-#produtos-sementes {
-    display: flex;
-    flex-wrap: wrap;
+/* VENDER MEU BAÚ */
+
+.vender-bau-container {
+    background-color: #fff8e7;
+    border: 3px solid #b85c37;
+    border-radius: 15px;
+    width: 50vw;
+    max-width: 700px;
+    margin: 2vw auto;
+    padding: 2vw;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* ================================
-   PÁGINA DE PRODUTO ÚNICO
-================================ */
+.vender-titulo {
+    font-size: 2.2vw;
+    color: #4a2e18;
+    text-align: center;
+    margin-bottom: 0.5vw;
+}
+
+.vender-subtitulo {
+    font-size: 1.2vw;
+    color: #6e4e37;
+    text-align: center;
+    margin-bottom: 1.5vw;
+}
+
+.form-vender {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+}
+
+.campo-bau {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+}
+
+.campo-bau-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1vw;
+}
+
+.campo-bau label {
+    font-size: 1.2vw;
+    color: #4a2e18;
+}
+
+.campo-bau input[type="text"],
+.campo-bau input[type="file"],
+.campo-bau select,
+.campo-bau textarea {
+    width: 100%;
+    padding: 0.6vw 0.8vw;
+    font-size: 1.1vw;
+    border: 1.5px solid #b85c37;
+    border-radius: 8px;
+    background-color: #ffecc9;
+    outline: none;
+}
+
+.campo-bau textarea {
+    resize: vertical;
+}
+
+.preview-box {
+    margin-top: 0.5vw;
+    text-align: center;
+}
+
+.preview-box p {
+    font-size: 1vw;
+    color: #6e4e37;
+    margin-bottom: 0.3vw;
+}
+
+.preview-box img {
+    max-height: 120px;
+    border: 2px solid #b85c37;
+    border-radius: 8px;
+    padding: 4px;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.botao-bau {
+    display: flex;
+    justify-content: center;
+    margin-top: 1vw;
+}
+
+.botao-bau button {
+    background-color: #f3aa65;
+    color: #000;
+    font-size: 1.5vw;
+    padding: 0.8vw 2vw;
+    border: 2px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.botao-bau button:hover {
+    background-color: #f7cca6;
+    transform: scale(1.02);
+}
+
+.msg-sucesso-bau {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1.5px solid #c3e6cb;
+    padding: 1vw;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2vw;
+    margin-bottom: 1vw;
+}
+
+.msg-erro-bau {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1.5px solid #f5c6cb;
+    padding: 1vw;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2vw;
+    margin-bottom: 1vw;
+}
+
+.btn-link {
+    display: inline-block;
+    background-color: #f3aa65;
+    color: black;
+    padding: 0.4vw 1vw;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 1vw;
+}
+
+/* PÁGINA DE PRODUTO ÚNICO */
 
 .produto-unico {
     display: flex;
@@ -417,29 +492,22 @@ body .outros-produtos .produtos .estrelass img {
     min-width: 0;
 }
 
-.coluna-esquerda .textos p {
-    margin-left: 1vw;
-}
-
 #titulo {
     font-size: 2.3vw;
 }
 
 #pix {
     color: red;
-    margin-left: 4vw;
-    font-size: 2vw;
+    font-size: 1.8vw;
 }
 
 #parcela {
     color: rgb(119, 118, 118);
-    margin-left: 7vw;
-    font-size: 2vw;
+    font-size: 1.8vw;
 }
 
 #avaliacao {
     color: rgb(119, 118, 118);
-    margin-left: 2vw;
 }
 
 .coluna-esquerda .estrelass img {
@@ -447,22 +515,18 @@ body .outros-produtos .produtos .estrelass img {
     width: auto;
 }
 
-#primeira {
-    margin-left: 2vw;
-}
-
 .conteudo-principal {
     display: flex;
     align-items: flex-start;
     margin-bottom: 2vw;
+    gap: 2vw;
 }
 
 .produto-unico .img-produto img {
-    height: 20vw;
-    width: auto;
-    margin-left: 6vw;
-    margin-right: 1vw;
+    height: 200px;
+    width: 200px;
     object-fit: contain;
+    image-rendering: pixelated;
 }
 
 .descricao {
@@ -472,30 +536,21 @@ body .outros-produtos .produtos .estrelass img {
 }
 
 .descricao h1 {
-    font-size: 2.3vw;
-}
-
-.descricao p,
-.descricao li {
     font-size: 2vw;
 }
 
-.descricao li {
-    margin-left: 2vw;
+.descricao p {
+    font-size: 1.4vw;
+    line-height: 1.5;
 }
-
-/* ================================
-   CAIXA DE COMPRA
-================================ */
 
 #compra {
     border: 2px solid black;
     border-radius: 25px;
     padding: 25px;
-    padding-bottom: 50px;
     background-color: #f3aa65 !important;
     flex: 1;
-    min-width: 250px;
+    min-width: 280px;
 }
 
 #compra h1 {
@@ -503,505 +558,155 @@ body .outros-produtos .produtos .estrelass img {
     text-align: center;
 }
 
-#vendedor {
-    text-decoration: underline;
-}
-
-#compra p {
-    margin-left: 2.2vw;
-    font-size: 1vw;
-}
-
-#entrega {
-    margin-left: 2.2vw;
-    font-size: 2vw;
-}
-
-#frete {
-    font-size: 1.2vw;
-    color: rgb(44, 156, 0);
-}
-
-#pagamento {
-    font-size: 1.2vw;
-    color: rgb(65, 64, 64);
-}
-
-#compra label {
-    font-size: 2vw;
-    margin-left: 1vw;
-}
-
-.formulario input {
-    height: 2vw;
-    margin-top: 1.4vw;
-    font-size: 1vw;
-    padding: 0.3vw;
-}
-
-.formulario .botao {
-    display: flex;
-    justify-content: center;
-}
-
-.formulario button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1.5px solid black;
-    font-size: 1.6vw;
-    margin-top: 1vw;
-    border-radius: 10px;
-    cursor: pointer;
-    padding: 0.5vw 1vw;
-}
-
-#quantidade {
-    font-size: 5vw;
-}
-
-#qinput {
-    background-color: #f3aa65;
-}
-
-#comprar-a {
-    background-color: rgb(224, 11, 11);
-    margin-bottom: 2vh;
-}
-
-#add-car {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.6vw;
-    margin-top: 1vw;
-    border: 1.5px solid black;
-    border-radius: 10px;
-    background-color: #f7cca6;
-    text-decoration: none;
-    color: black;
-    padding: 0.5vw 1vw;
-}
-
-#add-car:hover,
-.formulario button:hover {
-    font-size: 1.7vw;
-}
-
-/* ================================
-   AVALIAÇÕES
-================================ */
-
-.estrelas-avaliacao {
-    display: flex;
-    align-items: center;
-    gap: 0.2vw;
-}
-
-.estrelas-avaliacao img {
-    height: 1.2vw;
-    width: auto;
-    margin: 0;
-}
-
-.texto-avaliacao {
-    color: rgb(65, 64, 64);
-    font-size: 2vw;
-    display: block;
-    margin: 1vw 0;
-}
-
-.avaliacao {
-    font-size: 2vw;
-    display: flex;
-    align-items: center;
-    gap: 0.5vw;
-}
-
-/* ================================
-   CADASTRO / LOGIN
-================================ */
+/* LOGIN E CADASTRO */
 
 .corpo {
     display: flex;
     justify-content: center;
-    margin: 5px;
-    padding-bottom: 25vh;
+    margin: 1vw;
+    padding-bottom: 5vh;
 }
 
 .login {
-    width: 25vw;
+    width: 30vw;
+    min-width: 320px;
     margin-top: 2vw;
     border: 2px solid black;
     border-radius: 10px;
-    padding: 1vw;
-}
-
-.formulario {
-    border: none;
-}
-
-#login-titulo {
-    text-align: center;
+    padding: 1.5vw;
+    background-color: #fff8e7;
 }
 
 .campo {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    align-items: center;
-    gap: 0.8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
     margin-bottom: 1vw;
 }
 
 .campo label {
-    text-align: right;
+    font-size: 1.1vw;
+    text-align: left;
 }
 
 .campo input {
     width: 100%;
-    padding: 0.4vw;
-}
-
-.login .botao {
-    display: flex;
-    justify-content: center;
-    margin-top: 2vw;
+    padding: 0.6vw;
+    font-size: 1vw;
+    border: 1px solid #555;
+    border-radius: 6px;
 }
 
 .login .botao button {
-    width: 60%;
+    width: 100%;
     cursor: pointer;
     background-color: #f3aa65;
-}
-
-.login .formulario button:hover {
-    font-size: 2.5vw;
-}
-
-/* ================================
-   RODAPÉ / OPÇÕES
-================================ */
-
-#opcoes {
-    display: block;
-    text-align: center;
-    margin-top: 1.5vw;
-    font-size: 1vw;
-    text-decoration: none;
-    color: black;
-}
-
-#opcoes:hover {
-    color: rgb(71, 0, 0);
-    font-size: 1.1vw;
-}
-
-/* ================================
-   CARRINHO
-================================ */
-
-.chasi {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.chasi .compra {
-    width: calc(90% - 2vw);
-    border: 3px solid black;
-    border-radius: 10px;
-    margin-top: 2vw;
-    margin-left: 2vw;
-    justify-content: space-between;
-    display: flex;
-}
-
-.chasi .compra img {
-    height: 10vw;
-    width: auto;
-}
-
-.chasi .esquerda {
-    margin: 1vw;
-    display: flex;
-}
-
-.chasi .dados {
-    margin-top: 1vw;
-    margin-left: 1vw;
-}
-
-.chasi .finalizar p {
-    font-size: 2vw;
-    margin-right: 2vw;
-    padding: 1vw;
-}
-
-.chasi label {
-    font-size: 1.7vw;
-}
-
-.chasi form {
-    display: flex;
-    flex-direction: column;
-    margin-left: 2vw;
-}
-
-.chasi .botao {
-    display: flex;
-    justify-content: center;
-    margin: 2vw;
-}
-
-.chasi .botao button {
-    font-size: 2vw;
-    background-color: #d8a26e;
-    cursor: pointer;
-    padding: 3px;
-    border-radius: 10px;
-}
-
-.chasi .cep {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: 3vw;
-    margin-top: 2vw;
-    gap: 0.5vw;
-}
-
-.chasi .cep input {
-    width: 8vw;
-    padding: 0.2vw;
-    font-size: 1vw;
-}
-
-.chasi .frete {
     font-size: 1.5vw;
-    color: rgb(65, 64, 64);
-    margin-left: auto;
-    margin-right: 3vw;
+    padding: 0.6vw;
+    border: 1.5px solid black;
+    border-radius: 8px;
 }
 
-.chasi .total {
-    font-size: 2vw;
-    font-weight: bold;
-    color: black;
-    margin-left: auto;
-    margin-right: 3vw;
-}
+/* MEDIA QUERIES - TABLET & MOBILE */
 
-/* ================================
-   MENU SUSPENSO DA PESQUISA
-================================ */
-
-.search-container {
-    position: relative;
-}
-
-.autocomplete-box {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-top: none;
-    max-height: 200px;
-    overflow-y: auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.item-produto {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-}
-
-.item-produto:hover {
-    background-color: #f0f0f0;
-}
-
-.item-produto img {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-/* CSS MOBILE desgraçado chorei fazendo isso */
-
-@media (max-width: 768px) {
-
-    body {
-        font-size: 16px;
-        overflow-x: hidden;
-    }
-
-    /* Header */
-
+@media (max-width: 1024px) {
     header .menu-superior {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 10px 15px !important;
-        gap: 10px !important;
-    }
-
-    header .imagem-header {
-        width: 100% !important;
-        text-align: center !important;
+        flex-direction: column;
+        gap: 10px;
     }
 
     header .imagem-header img {
-        width: 110px !important;
-        margin: 0 auto !important;
+        width: 180px;
     }
 
-    header .barra-pesquisa-header,
-    header .search-container {
-        flex: 1 !important;
-        width: auto !important;
-        margin: 0 !important;
-        position: relative !important;
+    header .barra-pesquisa-header input {
+        width: 60vw;
+        height: 38px;
+        font-size: 16px;
     }
 
-    header .barra-pesquisa-header form {
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        gap: 8px !important;
+    header .icons-header a {
+        font-size: 24px;
     }
 
-    header .barra-pesquisa-header input,
-    header .search-container input {
-        width: 100% !important;
-        height: 38px !important;
-        font-size: 14px !important;
-        padding: 0 12px !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
+    header .menu-inferior .botoes a {
+        font-size: 18px;
     }
 
-    header .barra-pesquisa-header label {
-        display: flex !important;
-        align-items: center !important;
-        cursor: pointer;
+    .vender-bau-container {
+        width: 80vw;
     }
 
-    header .barra-pesquisa-header svg {
-        width: 20px !important;
-        height: 20px !important;
-        flex-shrink: 0 !important;
+    .vender-titulo {
+        font-size: 24px;
     }
 
-    header .icons-header {
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        padding: 0 !important;
-        margin-left: 5px !important;
+    .vender-subtitulo,
+    .campo-bau label {
+        font-size: 16px;
     }
 
-    header .icons-header a,
-    header .icons-header svg,
-    header .icons-header img {
-        font-size: 20px !important;
-        width: 22px !important;
-        height: 22px !important;
+    .campo-bau input[type="text"],
+    .campo-bau select,
+    .campo-bau textarea {
+        font-size: 16px;
+        padding: 8px;
     }
 
-    header .barra-pesquisa-header .autocomplete-box {
-        width: 100% !important;
-        top: 100% !important;
-        left: 0 !important;
-        max-height: 200px !important;
-        z-index: 1000 !important;
-        background-color: #fff8e7 !important;
-        border: 2px solid #b85c37 !important;
-        border-radius: 8px !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+    .botao-bau button {
+        font-size: 18px;
     }
 
-    header .barra-pesquisa-header .autocomplete-box .item-produto {
+    .produto-unico {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .coluna-esquerda {
+        width: 100%;
+    }
+
+    #compra {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    header .menu-superior {
         padding: 10px !important;
-        font-size: 14px !important;
     }
 
-    header .barra-pesquisa-header .autocomplete-box .item-produto img {
-        width: 28px !important;
-        height: 28px !important;
-        margin-right: 10px !important;
-    }
-
-    /* Menu inferior */
-
-    header .menu-inferior {
+    header .barra-pesquisa-header input {
         width: 100% !important;
-        padding: 8px 0 !important;
     }
 
-    .menu-inferior,
-    .menu-inferior nav,
-    .menu-inferior ul,
-    .menu-inferior .botoes-rodape {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 10px 18px !important; 
-        width: 100% !important;
-        margin: 0 auto !important;
-        padding: 5px 10px !important;
-        list-style: none !important;
+    header .menu-inferior .botoes {
+        gap: 12px;
     }
 
-    /* Formatação individual  */
-
-    .menu-inferior a,
-    .menu-inferior li,
-    .menu-inferior p,
-    .menu-inferior span,
-    .menu-inferior .botoes-rodape #Contato,
-    .menu-inferior .botoes-rodape #Sobre {
-        display: inline-block !important;
-        font-size: 15px !important;
-        font-weight: bold !important;
-        text-decoration: none !important;
-        color: #000 !important;
-        margin: 0 !important;
-        padding: 2px 4px !important;
-        white-space: nowrap !important; 
+    header .menu-inferior .botoes a {
+        font-size: 15px;
+        margin: 0 4px;
     }
 
-   /* Promo */
     body .promos {
         flex-direction: column;
         align-items: center;
-        margin-bottom: 15px !important; 
     }
 
     body .promos .promo-pai img {
-        width: 90%;
         height: auto;
-        margin: 20px auto 0;
+        width: 90%;
     }
 
     body .promos .promo-filho {
         grid-template-columns: repeat(2, 120px);
-        gap: 15px;
         margin-left: 0;
-        margin-top: 20px;
-        margin-bottom: 2px !important; 
-        justify-content: center;
+        gap: 15px;
     }
 
     .promo-filho .card-promo {
@@ -1009,307 +714,41 @@ body .outros-produtos .produtos .estrelass img {
         height: 120px;
     }
 
-    .promo-filho .card-promo:nth-child(3),
-    .promo-filho .card-promo:nth-child(4) {
-        transform: none;
-    }
-
-    .promo-filho .selo-estrela {
-        width: 35px !important;
-        bottom: -5px;
-        right: -5px;
-    }
-
-    .promo-filho .selo-banner {
-        width: 95px !important; 
-        height: auto !important;
-        bottom: -10px !important;
-        right: -15px !important;
-        z-index: 10 !important;
-    }
-
-    /* Produtos */
-    body .outros-produtos h1,
-    body .produtos-container h1,
-    body h1 {
-        font-size: 24px !important;
-        text-align: center !important;
-    }
-
-    body .produtos,
-    body .lista-produtos,
-    body .grid-produtos {
-        display: flex !important;
-        flex-direction: column !important; 
-        align-items: center !important;     
-        justify-content: center !important;
-        width: 100% !important;
-        padding: 10px 0 !important;
-        margin: 0 auto !important;
-    }
-
-    body .produtos .um-produto,
-    body .um-produto,
-    body .card-produto {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;     
-        text-align: center !important;
-        margin: 15px auto !important;
-        width: 100% !important;
-    }
-
-    body .outros-produtos .produtos img,
-    body .produtos img,
-    body .um-produto img {
-        width: 130px !important;
-        height: 130px !important;
-        margin: 0 auto 10px auto !important;
-        display: block !important;
-    }
-
-    body .outros-produtos .produtos .estrelass img,
-    body .produtos .estrelas img,
-    body .um-produto .estrelass img {
-        width: auto !important;
-        height: 12px !important;
-        margin: 5px auto !important;
-        display: inline-block !important;
-    }
-
-    /* Produto único */
-
-    .produto-unico {
-        flex-direction: column;
-        align-items: center;
+    .vender-bau-container {
+        width: 95vw;
         padding: 15px;
     }
 
-    .coluna-esquerda {
-        width: 100%;
+    .campo-bau-duplo {
+        grid-template-columns: 1fr;
     }
 
-    .produto-unico .img-produto img {
-        height: 250px;
-        width: auto;
-        margin: 0 auto 20px;
-        display: block;
+    .login {
+        width: 90vw;
     }
 
-    #titulo {
+    .campo label,
+    .campo input {
+        font-size: 16px;
+    }
+
+    .nome-link {
+        font-size: 16px;
+    }
+
+    body .outros-produtos h1 {
         font-size: 22px;
         text-align: center;
     }
 
-    #pix,
-    #parcela,
-    #avaliacao {
-        font-size: 16px;
-        margin-left: 10px;
-    }
-
-    .descricao {
+    .chasi .compra {
+        flex-direction: column;
         width: 100%;
-    }
-
-    .descricao h1 {
-        font-size: 20px;
-    }
-
-    .descricao p,
-    .descricao li {
-        font-size: 16px;
-    }
-
-    #compra {
-        width: 100%;
-        min-width: 0;
-        margin-right: 0;
-        padding: 20px;
-    }
-
-    #compra h1 {
-        font-size: 20px;
-    }
-
-    #compra p,
-    #entrega,
-    #frete,
-    #pagamento,
-    #compra label {
-        font-size: 16px;
         margin-left: 0;
     }
 
-    .formulario input {
-        height: 35px;
-        font-size: 16px;
-    }
-
-    .formulario button,
-    #add-car {
-        font-size: 16px;
-        padding: 12px;
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Avaliações */
-    .texto-avaliacao,
-    .avaliacao {
-        font-size: 16px;
-    }
-
-    .estrelas-avaliacao img {
-        height: 14px;
-    }
-
-    /* Login */
-    .login {
-        width: 90vw;
-        padding: 20px;
-    }
-
-    .campo {
-        grid-template-columns: 1fr;
-        gap: 5px;
-    }
-
-    .campo label {
-        text-align: left;
-    }
-
-    .campo input {
-        padding: 10px;
-        font-size: 16px;
-    }
-
-    .login .botao button {
-        width: 100%;
-        padding: 12px;
-    }
-
-    #opcoes {
-        font-size: 14px;
-    }
-
-    /* Carrinho Mobile */
-    .chasi {
+    .chasi .esquerda {
         flex-direction: column;
         align-items: center;
-        width: 100% !important;
-        padding: 10px !important;
-        box-sizing: border-box !important;
-    }
-
-    .chasi .compra {
-        width: 100% !important;
-        margin-left: 0 !important;
-        flex-direction: column !important;
-    }
-
-    .chasi .esquerda {
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    .chasi .compra img {
-        height: 150px !important;
-    }
-
-    .chasi .dados {
-        margin: 10px !important;
-        text-align: center !important;
-    }
-
-    .chasi label {
-        font-size: 16px !important;
-    }
-
-    .chasi form {
-        margin-left: 0 !important;
-        width: 100% !important;
-    }
-
-    .chasi .botao {
-        position: static !important;
-        margin: 15px !important;
-    }
-
-    .chasi .botao button {
-        font-size: 18px !important;
-        padding: 10px 20px !important;
-        width: 100% !important;
-    }
-
-    .chasi .cep,
-    .chasi .cupom,
-    .chasi form:has(input) {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 8px !important;
-        width: 100% !important;
-        margin: 10px 0 !important;
-        padding: 0 !important;
-        font-size: 16px !important;
-        font-weight: bold !important;
-    }
-
-    .chasi .cep label,
-    .chasi .cupom label,
-    .chasi form label,
-    .chasi .cep span,
-    .chasi .cupom span {
-        min-width: 65px !important;
-        text-align: right !important;
-        font-size: 16px !important;
-        margin: 0 !important;
-    }
-
-
-    .chasi .cep input,
-    .chasi .cupom input,
-    .chasi form input[type="text"] {
-        width: 130px !important;
-        height: 36px !important;
-        font-size: 14px !important;
-        padding: 0 8px !important;
-        box-sizing: border-box !important;
-        margin: 0 !important;
-    }
-
-    .chasi .cep button,
-    .chasi .cupom button,
-    .chasi .cep input[type="submit"],
-    .chasi .cupom input[type="submit"],
-    .chasi form button {
-        height: 30px !important;
-        padding: 0 10px !important;
-        font-size: 11px !important;
-        margin: 0 !important;
-        white-space: nowrap !important;
-        cursor: pointer;
-    }
-
-    .chasi .frete,
-    .chasi .frete p,
-    .chasi .frete label,
-    .chasi .frete span {
-        font-size: 18px !important;
-        font-weight: 500 !important;
-        text-align: center !important;
-        margin: 12px 0 5px 0 !important;
-    }
-
-    .chasi .total,
-    .chasi .total p,
-    .chasi .total span,
-    .chasi .total h2 {
-        font-size: 22px !important;
-        font-weight: bold !important;
-        text-align: center !important;
-        margin: 10px 0 !important;
     }
 }
